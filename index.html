@@ -47,7 +47,9 @@
                 if(status === "granted") {
                     const notif = new Notification('Test thing', 
                     {icon:"./Assets/Grape_logo.png",
-                    body:"hey there gamer"});
+                    body:"hey there gamer",actions:[
+                    {action:'ac1',title:'Like',icon:"./Assets/Grape_logo.png"},
+                    {action:'ac2',title:'Share'}]});
                 } else {
                     console.log(status);
                 }
