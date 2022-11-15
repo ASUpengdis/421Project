@@ -7,8 +7,25 @@
     <meta name="viewport" content="width=device-width">
     <title>Web Notifications</title>
     <style>
+        /* Scroll past image code from https://www.w3schools.com/howto/howto_css_parallax.asp */
+        .imageBackground {
+            background-image: url("https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg");
+            height: 400px;
+            line-height: 265px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        body {
+            background: #FFFDD0;
+        }
         h1 {
             text-align: center;
+            color: white;
+            font-size: 56px;
+            font-weight: bold;
+            font-family: sans-serif;
         }
     </style>
 </head>
@@ -16,7 +33,7 @@
 <body>
     <div id="app">
         <a id="header">
-            <h1>Web Notifications</h1>
+            <h1 class ="imageBackground">Web Notifications</h1>
         </a>
         <a id="table-of-contents">
             <h2>Table of Contents</h2>
@@ -37,9 +54,11 @@
         </a>
         <a id="reference-list">
             <h2>Reference List</h2>
+            <a href="https://www.w3schools.com/howto/howto_css_parallax.asp" target="_blank">Stable Image Background Tutorial</a><br />
         </a>
         <a id="resource-list">
             <h2>Resource List</h2>
+            <a href="https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg" target="_blank">Background Image</a><br />
         </a>
     </div>
 
