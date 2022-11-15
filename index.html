@@ -7,70 +7,99 @@
     <meta name="viewport" content="width=device-width">
     <title>Web Notifications</title>
     <style>
+        /* Scroll past image code from https://www.w3schools.com/howto/howto_css_parallax.asp */
+        .imageBackground {
+            background-image: url("https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg");
+            height: 400px;
+            line-height: 265px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        body {
+            background: #FFFDD0;
+        }
         h1 {
             text-align: center;
+            color: white;
+            font-size: 56px;
+            font-weight: bold;
+            font-family: sans-serif;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div id="header">
-            <h1>Web Notifications</h1>
-        </div>
-        <div id="table-of-contents">
+        <a id="header">
+            <h1 class ="imageBackground">Web Notifications</h1>
+        </a>
+        <a id="table-of-contents">
             <h2>Table of Contents</h2>
-        </div>
-        <div id="learning-activities">
+            <a href="#learning-activites">1. Learning Activities</a><br />
+            <a href="#history">2. History</a><br />
+            <a href="#analytical-componenet">3. Analytical Component</a><br />
+            <a href="#reference-list">4. Reference List</a><br />
+            <a href="#resource-list">5. Resource List</a><br />
+        </a>
+        <a id="learning-activities">
             <h2>Learning Activities</h2>
             <input id="btn" type="button" value="Click here">
             <input id="btn2" type="button" value="Click here2">
-        </div>
-        <script>
-            var button = document.getElementById("btn");
-            var button2 = document.getElementById("btn2");
 
-            var status;
-            button.addEventListener('click',()=> {
-                //requestPermission works on chrome, not firefox
-                let promise = Notification.requestPermission().then((result) => {
-                    status = result;
-                });
-               
-            });
-            /*
-                actions:[
-                    {action:'ac1',title:'Like',icon:"../Assets/Grape_logo.png"},
-                    {action:'ac2',title:'Share'}]
-            */
-            button2.addEventListener('click',() => {
-                if(status === "granted") {
-                    const notif = new Notification('Test thing', 
-                    {icon:"./Assets/Grape_logo.png",
-                    body:"hey there gamer"});
-                    notif.addEventListener("click", () => {
-                        document.getElementById("header").innerText = "Notification pushed";
+            <script>
+                var button = document.getElementById("btn");
+                var button2 = document.getElementById("btn2");
+
+                var status;
+                button.addEventListener('click', () => {
+                    //requestPermission works on chrome, not firefox
+                    let promise = Notification.requestPermission().then((result) => {
+                        status = result;
                     });
-                } else {
-                    console.log(status);
-                }
-            });
-        </script>
-        <div id="history">
+
+                });
+                /*
+                    actions:[
+                        {action:'ac1',title:'Like',icon:"../Assets/Grape_logo.png"},
+                        {action:'ac2',title:'Share'}]
+                */
+                button2.addEventListener('click', () => {
+                    if (status === "granted") {
+                        const notif = new Notification('Test thing',
+                            {
+                                icon: "./Assets/Grape_logo.png",
+                                body: "hey there gamer"
+                            });
+                        notif.addEventListener("click", () => {
+                            document.getElementById("header").innerText = "Notification pushed";
+                        });
+                    } else {
+                        console.log(status);
+                    }
+                });
+            </script>
+        </a>
+        <a id="history">
             <h2>History</h2>
-        </div>
-        <div id="analytical-component">
+        </a>
+        <a id="analytical-component">
             <h2>Analytical Component</h2>
-        </div>
-        <div id="reference-list">
+        </a>
+        <a id="reference-list">
             <h2>Reference List</h2>
-        </div>
-        <div id="resource-list">
+            <ul>
+                <li><a href="https://www.w3schools.com/howto/howto_css_parallax.asp" target="_blank">Stable Image Background Tutorial</a></li>
+                <li><a href="https://notifications.spec.whatwg.org/#using-actions" target="_blank">Notifications API Research</a></li>
+            </ul>
+        </a>
+        <a id="resource-list">
             <h2>Resource List</h2>
             <ul>
-                <li><a href="https://notifications.spec.whatwg.org/#using-actions">https://notifications.spec.whatwg.org/#using-actions</a></li>
+                <li><a href="https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg" target="_blank">Background Image</a></li>
             </ul>
-        </div>
+        </a>
     </div>
 
     <!-- <script src="https://unpkg.com/vue@3"></script>
@@ -82,10 +111,10 @@
                 }
             },
             methods: {
-                
+
             },
             mounted: function () {
-                
+
             },
         }).mount('#app')
     </script> -->
