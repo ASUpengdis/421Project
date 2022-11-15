@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+    </head>
+    <body>
+        <input id="btn" type="button" value="Click here">
+        <script>
+            var button = document.getElementById("btn");
+            button.addEventListener('click',()=> {
+                let promise = Notification.requestPermission().then((result) => {
+                    console.log(result);
+                    console.log(promise);
+                });
+                const notif = new Notification('Test thing', {body:"hey there gamer"})
+            })
+        </script>
+    </body>
+</html>
