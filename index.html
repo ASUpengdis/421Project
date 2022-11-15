@@ -23,7 +23,36 @@
         </div>
         <div id="learning-activities">
             <h2>Learning Activities</h2>
+            <input id="btn" type="button" value="Click here">
+            <input id="btn2" type="button" value="Click here2">
         </div>
+        <script>
+            var button = document.getElementById("btn");
+            var button2 = document.getElementById("btn2");
+
+            var status;
+            button.addEventListener('click',()=> {
+                //requestPermission works on chrome, not firefox
+                let promise = Notification.requestPermission().then((result) => {
+                    status = result;
+                });
+               
+            });
+            /*
+                actions:[
+                    {action:'ac1',title:'Like',icon:"../Assets/Grape_logo.png"},
+                    {action:'ac2',title:'Share'}]
+            */
+            button2.addEventListener('click',() => {
+                if(status === "granted") {
+                    const notif = new Notification('Test thing', 
+                    {icon:"../Assets/Grape_logo.png",
+                    body:"hey there gamer"});
+                } else {
+                    console.log(status);
+                }
+            });
+        </script>
         <div id="history">
             <h2>History</h2>
         </div>
