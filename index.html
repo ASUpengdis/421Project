@@ -11,30 +11,47 @@
         .imageBackground {
             background-image: url("https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg");
             height: 400px;
-            line-height: 265px;
+            line-height: 20px;
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
         }
-        body {
-            background: #FFFDD0;
-        }
-        h1 {
-            text-align: center;
+        .title {
             color: white;
             font-size: 56px;
             font-weight: bold;
             font-family: sans-serif;
+        }
+        body {
+            background: #FFFDD0;
+        }
+        td {
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <a id="header">
-            <h1 class ="imageBackground">Web Notifications</h1>
-        </a>
+        <div class="imageBackground" id="header">
+            <div style="position: fixed; padding-left: 50px; padding-top: 100px ">
+                <a class="title">Web Notifications</a>
+            </div>
+            <div  style="position: fixed; padding-left: 1100px; padding-top: 75px">
+                <table>
+                    <tr>
+                        <td><a class="title" style="font-size: 24px">Charles Jeffries</a> </td>
+                    </tr>
+                    <tr>
+                        <td><a class="title" style="font-size: 24px">Sakan Pengdis</a> </td>
+                    </tr>
+                    <tr>
+                        <td><a class="title" style="font-size: 24px">Joshua Zimmerling</a> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <a id="table-of-contents">
             <h2>Table of Contents</h2>
             <ol>
