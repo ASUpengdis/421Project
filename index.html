@@ -11,6 +11,7 @@
         .imageBackground {
             background-image: url("https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg");
             height: 400px;
+            min-height: 150px;
             line-height: 20px;
             background-attachment: fixed;
             background-position: center;
@@ -18,7 +19,7 @@
             background-size: cover;
         }
         .title {
-            color: white;
+            color: #FFFDD0;
             font-size: 56px;
             font-weight: bold;
             font-family: sans-serif;
@@ -39,7 +40,7 @@
             <div style="position: fixed; padding-left: 50px; padding-top: 100px ">
                 <a class="title">Web Notifications</a>
             </div>
-            <div  style="position: fixed; padding-left: 1100px; padding-top: 75px">
+            <div  style="position: fixed; z-index:0; padding-left: 1100px; padding-top: 75px">
                 <table>
                     <tr>
                         <td><a class="title" style="font-size: 24px">Charles Jeffries</a> </td>
@@ -53,74 +54,87 @@
                 </table>
             </div>
         </div>
-        <a id="table-of-contents">
-            <h2>Table of Contents</h2>
-            <ol>
-                <li><a href="#learning-activites">Learning Activities</a></li>
-                <li><a href="#history">History</a></li>
-                <li><a href="#analytical-componenet">Analytical Component</a></li>
-                <li><a href="#reference-list">Reference List</a></li>
-                <li><a href="#resource-list">Resource List</a></li>        
-            </ol>
-        </a>
-        <a id="learning-activities">
-            <h2>Learning Activities</h2>
-            <input id="btn" type="button" value="Click here">
-            <input id="btn2" type="button" value="Click here2">
+        <div style="margin: 10px; position: absolute; z-index:1" id="mainBody">
+            <a id="table-of-contents">
+                <h2>Table of Contents</h2>
+                <ol>
+                    <li><a href="#learning-activites">Learning Activities</a></li>
+                    <li><a href="#history">History</a></li>
+                    <li><a href="#analytical-componenet">Analytical Component</a></li>
+                    <li><a href="#reference-list">Reference List</a></li>
+                    <li><a href="#resource-list">Resource List</a></li>        
+                </ol>
+            </a>
+            <a id="learning-activities">
+                <h2>Learning Activities</h2>
+                <input id="btn" type="button" value="Click here">
+                <input id="btn2" type="button" value="Click here2">
 
-            <script>
-                var button = document.getElementById("btn");
-                var button2 = document.getElementById("btn2");
+                <script>
+                    var button = document.getElementById("btn");
+                    var button2 = document.getElementById("btn2");
 
-                var status;
-                button.addEventListener('click', () => {
-                    //requestPermission works on chrome, not firefox
-                    let promise = Notification.requestPermission().then((result) => {
-                        status = result;
-                    });
-
-                });
-                /*
-                    actions:[
-                        {action:'ac1',title:'Like',icon:"../Assets/Grape_logo.png"},
-                        {action:'ac2',title:'Share'}]
-                */
-                button2.addEventListener('click', () => {
-                    if (status === "granted") {
-                        const notif = new Notification('Test thing',
-                            {
-                                icon: "./Assets/Grape_logo.png",
-                                body: "hey there gamer"
-                            });
-                        notif.addEventListener("click", () => {
-                            document.getElementById("header").innerText = "Notification pushed";
+                    var status;
+                    button.addEventListener('click', () => {
+                        //requestPermission works on chrome, not firefox
+                        let promise = Notification.requestPermission().then((result) => {
+                            status = result;
                         });
-                    } else {
-                        console.log(status);
-                    }
-                });
-            </script>
-        </a>
-        <a id="history">
-            <h2>History</h2>
-        </a>
-        <a id="analytical-component">
-            <h2>Analytical Component</h2>
-        </a>
-        <a id="reference-list">
-            <h2>Reference List</h2>
-            <ul>
 
-            </ul>
-        </a>
-        <a id="resource-list">
-            <h2>Resource List</h2>
-            <ul>
-                <li><a href="https://notifications.spec.whatwg.org/#using-actions" target="_blank">Notifications API Research</a></li>
-                <li><a href="https://www.w3schools.com/howto/howto_css_parallax.asp" target="_blank">Stable Image Background Tutorial</a></li>
-                <li><a href="https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg" target="_blank">Background Image</a></li>
-            </ul>
-        </a>
+                    });
+                    /*
+                        actions:[
+                            {action:'ac1',title:'Like',icon:"../Assets/Grape_logo.png"},
+                            {action:'ac2',title:'Share'}]
+                    */
+                    button2.addEventListener('click', () => {
+                        if (status === "granted") {
+                            const notif = new Notification('Test thing',
+                                {
+                                    icon: "./Assets/Grape_logo.png",
+                                    body: "hey there gamer"
+                                });
+                            notif.addEventListener("click", () => {
+                                document.getElementById("header").innerText = "Notification pushed";
+                            });
+                        } else {
+                            console.log(status);
+                        }
+                    });
+                </script>
+            </a>
+            <a id="history">
+                <h2>History</h2>
+                <p>
+                    Web push notifications are a relatively new innovation to the web development scene, making their history
+                    not span a very long way back in time. Todd Grennan highlights that the first addition of web push notifications
+                    to browsers came in 2014 as Google added this functionality into Google Chrome. Slowly, thoroughout the next 4
+                    years or so browsers such as Opera, Firefox, Safari, and Edge begin to support this functionality. [1]
+                </p>
+            </a>
+            <a id="analytical-component">
+                <h2>Analytical Component</h2>
+            </a>
+            <a id="reference-list">
+                <h2>Reference List</h2>
+                <ul>
+                    <li>[1] 
+                        <a href="https://www.braze.com/resources/articles/behind-web-push-notifications-2" target="_blank">
+                            Grennan, T. (2020, January 31). Behind web push notifications: History of web push. Braze. Retrieved November 15, 2022, <br />
+                            from https://www.braze.com/resources/articles/behind-web-push-notifications-2
+                        </a>
+                    </li>
+                </ul>
+            </a>
+            <a id="resource-list">
+                <h2>Resource List</h2>
+                <ul>
+                    <li><a href="https://notifications.spec.whatwg.org/#using-actions" target="_blank">Notifications API Research</a></li>
+                    <li><a href="https://www.w3schools.com/howto/howto_css_parallax.asp" target="_blank">Stable Image Background Tutorial</a></li>
+                    <li><a href="https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg" target="_blank">Background Image</a></li>
+                </ul>
+            </a>
+        </div>
     </div>
 
     <!-- <script src="https://unpkg.com/vue@3"></script>
