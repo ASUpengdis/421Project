@@ -59,10 +59,11 @@
                 <h2>Table of Contents</h2>
                 <ol>
                     <li><a href="#learning-activites">Learning Activities</a></li>
+                    <li><a href="#standards">Standards</a></li>
                     <li><a href="#history">History</a></li>
                     <li><a href="#analytical-componenet">Analytical Component</a></li>
                     <li><a href="#reference-list">Reference List</a></li>
-                    <li><a href="#resource-list">Resource List</a></li>        
+                    <li><a href="#resource-list">Resource List</a></li>
                 </ol>
             </a>
             <a id="learning-activities">
@@ -103,6 +104,17 @@
                     });
                 </script>
             </a>
+            <a id="standards">
+                <h2>Standards</h2>
+                <p>
+                    The main standard for push notifications is requesting permission from the user to allow your website to send 
+                    notifications. MDN outlines that "Before an app can send a notification, the user must grant the application the 
+                    right to do so" [1]. Furthermore, they discuss how push notifications had been abused in the past and that one
+                    of the new countermeasures against that is to only request permission after the user gestures in some way that 
+                    they may want these notifications, for example, clicking a button that says 'Keep Me Notified'. Once permission 
+                    has been asked for, every notification should check to ensure that the current permission status is 'granted'.
+                </p>
+            </a>
             <a id="history">
                 <h2>History</h2>
                 <p>
@@ -110,16 +122,16 @@
                     not span a very long way back in time. The first predecessor to notifications through the web is email communication
                     in which websites and companies can send mass emails to all of their users giving an update on whatever it is they
                     desire. In their article What are Push Notificiations - The Ultimate Guide, Gravitec states that "In 2001, RIM created
-                    the first email alert system" [1]. This was the first appearance of any type of push notification system, and started
+                    the first email alert system" [2]. This was the first appearance of any type of push notification system, and started
                     out as a functionality for the email app that was only on blackberry phones. Todd Grennan highlights that web push
                     stems off of the idea of mobile push, which originated back in 2009 with the rise of smart phones, however historically
                     web notifications have had a much harder time of being widely used and accepted. This reluctance of integration mainly
                     comes from users not trusting web notifications as much as mobile push notifications, causing a large percent of
-                    people to decline websites the permissions necessary [2]. As technology becomes more and more integrated into everyones
+                    people to decline websites the permissions necessary [3]. As technology becomes more and more integrated into everyones
                     daily life, more and more users will begin getting comfortable with this concept and help web push to grow into a
                     mainstream feature on many websites. The first addition of web push notifications to browsers came in 2014 as Google
                     added this functionality into Google Chrome. Slowly, thoroughout the next 4 years or so browsers such as Opera, Firefox,
-                    Safari, and Edge begin to support this functionality [3].
+                    Safari, and Edge begin to support this functionality [4].
                 </p>
             </a>
             <a id="analytical-component">
@@ -130,20 +142,28 @@
                 <ul>
                     <li>
                         [1]
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API" target="_blank">
+                            MDN. Using the notifications API. Web APIs | MDN. Retrieved November 16, 2022, <br />
+                            from https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
+
+                        </a>
+                    </li>
+                    <li>
+                        [2]
                         <a href="https://gravitec.net/blog/what-are-push-notifications/" target="_blank">
                             Gravitec. (2019, May 4). What are Push Notifications - The Ultimate Guide. Gravitec. <br />
                             Retrieved November 16, 2022, from https://gravitec.net/blog/what-are-push-notifications/
                         </a>
                     </li>
                     <li>
-                        [2]
+                        [3]
                         <a href="https://www.braze.com/resources/articles/behind-web-push-notifications" target="_blank">
                             Grennan, T. (2020, January 31). Behind web push notifications: All You Need To Know About Web Messaging's Secret Weapon'. Braze. <br />
                             Retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications
                         </a>
                     </li>
                     <li>
-                        [3]
+                        [4]
                         <a href="https://www.braze.com/resources/articles/behind-web-push-notifications-2" target="_blank">
                             Grennan, T. (2020, January 31). Behind web push notifications: History of web push. Braze. <br />
                             Retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications-2
