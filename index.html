@@ -27,6 +27,7 @@
         .step {
             font-size: 16px;
             font-weight: bold;
+            text-decoration: underline;
         }
         body {
             background: #FFFDD0;
@@ -96,26 +97,42 @@
                         <li>index.html</li>
                         <li>notifications.js</li>
                     </ul>
-                    Inside of index.html, we are going to put this starter code that just lays out some buttons for us to use later:
-                    <pre><code>
-                        &lt;!DOCTYPE html&gt;
-                        &lt;html&gt;
-                            &lt;body&gt;
-                                &lt;input id="permissionButton" type="button" value="Click for permission"&gt;
-                                &lt;input id="notificationButton" type="button" value="Click for a push notification"&gt;
-                            &lt;/body&gt;
-                        &lt;/html&gt;
-                    </code></pre>
+                    Inside of index.html, we are going to put this starter code that just lays out some buttons:
+                    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src="notifications.js" defer&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="headerText"&gt; Let's Make a Notification! &lt;/div&gt;
+        &lt;input id="permissionButton" type="button" value="Click for permission"&gt;
+        &lt;input id="notificationButton" type="button" value="Click for a push notification"&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+                    Opening this file in our browser we get a webpage that looks like this<br />
+                    <img style="border:solid" src="tutorial/_sample_index_init-screenshot.png"/> <br />
+                    <p>
+                        Inside of notifications.js, we want to grab a reference to these elements so that we can use them later
+                        <pre>
+let header = document.getElementById("headerText");
+let permButton = document.getElementById("permissionButton");
+let notifButton = document.getElementById("notificationButton");</pre>
+                    </p>
                 </p>
                 <p>
                     <div class="step">Step 2: Asking for permission</div>
                     Before sending any notification, you need to ask the user if they will allow your page to send push 
                     notifications. This is done using the requestPermission() function in a promise to wait for the response.
-                    <pre><code>
-                        let promise = Notification.requestPermission().then((result) => {
-                            $status = result;
-                        });
-                    </code></pre>
+                    We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
+                    <pre>
+let status;
+
+permButton.addEventListener('click', () => {
+    let promise = Notification.requestPermission().then((result) => {
+        $status = result;
+    });
+});</pre>
                 </p>
                 <input id="btn" type="button" value="Click here">
                 <input id="btn2" type="button" value="Click here2">
