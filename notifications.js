@@ -3,7 +3,7 @@ var button2 = document.getElementById("btn2");
 var button3 = document.getElementById("btn3");
 
 var status;
-navigator.serviceWorker.register("notifiation.js");
+navigator.serviceWorker.register("https://asupengdis.github.io/421Project/");
 
 button.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
