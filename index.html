@@ -82,7 +82,7 @@
                 <h2>Learning Outcomes</h2>
                 <ul>
                     <li>Learn how to make a basic web notification</li>
-                    <li>Handling user input in web notifications using OpenFin</li>
+                    <li>Handling user input in web notifications</li>
                     <li>Cloud notification providers</li>
                 </ul>
             </a>
@@ -114,22 +114,20 @@
         &lt;input id="notificationButton" type="button" value="Click for a push notification"&gt;
     &lt;/body&gt;
 &lt;/html&gt;</pre>
-                    Opening this file in our browser we get a webpage that looks like this<br />
-                    <img style="border:solid" src="tutorial/_sample_index_init-screenshot.png"/> <br />
-                    <p>
-                        Inside of notifications.js, we want to grab a reference to these elements so that we can use them later
-                        <pre>
+                    Opening this file in our browser we get a webpage that looks like this:<br />
+                    <img style="border:solid" src="tutorial/_sample_index_init-screenshot.png"/> <br /><br />
+                    Inside of notifications.js, we want to grab a reference to these elements so that we can use them later
+                    <pre>
 let header = document.getElementById("headerText");
 let permButton = document.getElementById("permissionButton");
 let notifButton = document.getElementById("notificationButton");</pre>
-                    </p>
                 </p>
-                <p>
-                    <div class="step">Step 2: Asking for permission</div>
-                    Before sending any notification, you need to ask the user if they will allow your page to send push 
-                    notifications. This is done using the requestPermission() function in a promise to wait for the response.
-                    We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
-                    <pre>
+                    <p>
+                        <div class="step">Step 2: Asking for permission</div>
+                        Before sending any notification, you need to ask the user if they will allow your page to send push
+                        notifications. This is done using the requestPermission() function in a promise to wait for the response.
+                        We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
+                        <pre>
 let status;
 
 permButton.addEventListener('click', () => {
@@ -137,13 +135,16 @@ permButton.addEventListener('click', () => {
         $status = result;
     });
 });</pre>
-                </p>
-                <input id="btn" type="button" value="Click here">
+                        Now, once we click on the button, a pop-up will appear asking for permission to send notifications<br />
+                        <img style="border:solid" src="tutorial/_sample_index_perm-screenshot.png" /> <br />
+                        <input id="btn" type="button" value="Click here for permission pop-up">
+                        Here is an example of what that would look like.
+                    </p>
                 <input id="btn2" type="button" value="Click here2">
                 <input id="btn3" type="button" value="Click here3">
                 <a href="./Testcodestuff/test.html">press</a>
                 <a href="test2.html">asasdfasdf</a>
-                <h3>User Input with OpenFin</h3>
+                <h3>Handling User Input</h3>
                 <h3>Cloud Notifications</h3>
             </a>
             <a id="standards">
