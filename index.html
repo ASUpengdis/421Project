@@ -38,7 +38,11 @@
         }
     </style>
     <script src="notifications.js" defer></script>
-    
+    <script>
+        if(navigator.serviceWorker) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
 </head>
 
 <body>
