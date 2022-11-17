@@ -24,6 +24,10 @@
             font-weight: bold;
             font-family: sans-serif;
         }
+        .step {
+            font-size: 16px;
+            font-weight: bold;
+        }
         body {
             background: #FFFDD0;
             margin: 0px;
@@ -72,15 +76,51 @@
                 <h2>Learning Outcomes</h2>
                 <ul>
                     <li>Learn how to make a basic web notification</li>
-                    <li>Handling user input in web notifications</li>
+                    <li>Handling user input in web notifications using OpenFin</li>
                     <li>Cloud notification providers</li>
                 </ul>
             </a>
             <a id="learning-activities">
                 <h2>Learning Activities</h2>
+                <h3>Basic Web Notifications</h3>
+                <p>
+                    Modern browsers have begun including the Notifications API to allow developers an easy way to create basic
+                    web push notifications. In this section, we will walk through the steps on how to create and handle a
+                    notification.
+                </p>
+                <p>
+                    <div class="step">Step 1: Set-up</div>
+                    To set-up for our tutorial, we are going to start with 2 seperate files: 
+                    <ul>
+                        <li>index.html</li>
+                        <li>notifications.js</li>
+                    </ul>
+                    Inside of index.html, we are going to put this starter code that just lays out some buttons for us to use later:
+                    <pre><code>
+                        &lt;!DOCTYPE html&gt;
+                        &lt;html&gt;
+                            &lt;body&gt;
+                                &lt;input id="permissionButton" type="button" value="Click for permission"&gt;
+                                &lt;input id="notificationButton" type="button" value="Click for a push notification"&gt;
+                            &lt;/body&gt;
+                        &lt;/html&gt;
+                    </code></pre>
+                </p>
+                <p>
+                    <div class="step">Step 2: Asking for permission</div>
+                    Before sending any notification, you need to ask the user if they will allow your page to send push 
+                    notifications. This is done using the requestPermission() function in a promise to wait for the response.
+                    <pre><code>
+                        let promise = Notification.requestPermission().then((result) => {
+                            $status = result;
+                        });
+                    </code></pre>
+                </p>
                 <input id="btn" type="button" value="Click here">
                 <input id="btn2" type="button" value="Click here2">
                 <input id="btn3" type="button" value="Click here3">
+                <h3>User Input with OpenFin</h3>
+                <h3>Cloud Notifications</h3>
             </a>
             <a id="standards">
                 <h2>Standards</h2>
@@ -123,7 +163,7 @@
                     <li>
                         [1]
                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API" target="_blank">
-                            MDN. Using the notifications API. Web APIs | MDN. Retrieved November 16, 2022, <br />
+                            MDN. Using the notifications API. Web APIs | MDN. Last retrieved November 16, 2022, <br />
                             from https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
 
                         </a>
@@ -132,21 +172,21 @@
                         [2]
                         <a href="https://gravitec.net/blog/what-are-push-notifications/" target="_blank">
                             Gravitec. (2019, May 4). What are Push Notifications - The Ultimate Guide. Gravitec. <br />
-                            Retrieved November 16, 2022, from https://gravitec.net/blog/what-are-push-notifications/
+                            Last retrieved November 16, 2022, from https://gravitec.net/blog/what-are-push-notifications/
                         </a>
                     </li>
                     <li>
                         [3]
                         <a href="https://www.braze.com/resources/articles/behind-web-push-notifications" target="_blank">
                             Grennan, T. (2020, January 31). Behind web push notifications: All You Need To Know About Web Messaging's Secret Weapon'. Braze. <br />
-                            Retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications
+                            Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications
                         </a>
                     </li>
                     <li>
                         [4]
                         <a href="https://www.braze.com/resources/articles/behind-web-push-notifications-2" target="_blank">
                             Grennan, T. (2020, January 31). Behind web push notifications: History of web push. Braze. <br />
-                            Retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications-2
+                            Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications-2
                         </a>
                     </li>
                 </ul>
@@ -154,9 +194,9 @@
             <a id="resource-list">
                 <h2>Resource List</h2>
                 <ul>
-                    <li><a href="https://notifications.spec.whatwg.org/#using-actions" target="_blank">Notifications API Research</a></li>
                     <li><a href="https://www.w3schools.com/howto/howto_css_parallax.asp" target="_blank">Stable Image Background Tutorial</a></li>
                     <li><a href="https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg" target="_blank">Background Image</a></li>
+                    <li><a href="https://notifications.spec.whatwg.org/#using-actions" target="_blank">Notifications API Research</a></li>
                     <li><a href="https://whatwebcando.today/local-notifications.html" target="_blank">Persistent Notifications</a></li>
                 </ul>
             </a>
