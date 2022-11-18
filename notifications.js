@@ -30,7 +30,7 @@ button3.addEventListener('click', () => {
     if($status === 'granted') {
         //navigator.serviceWorker.getRegistration().then((reg) => reg.showNotification("This is a persistent notification"));
         navigator.serviceWorker.ready.then((regis) => {
-            regis.showNotification("Persistent notification up");
+            regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});
         });
     }
 });
