@@ -13,9 +13,7 @@ button.addEventListener('click', () => {
 });
 button2.addEventListener('click', () => {
     if ($status === "granted") {
-        if ($status === "granted") {
-            const notif = new Notification('Our new notification', {});
-        }
+        const notif = new Notification('Our new notification', {});
         /*const notif = new Notification('Test thing',
             {
                 icon: "./Assets/Grape_logo.png",
