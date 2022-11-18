@@ -128,17 +128,16 @@ let notifButton = document.getElementById("notificationButton");</pre>
                     <div class="step">Step 2: Asking for permission</div>
                     Before sending any notification, you need to ask the user if they will allow your page to send push
                     notifications [1]. This is done using the requestPermission() function in a promise to wait for the response.
-                    We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
+                    We will add this promise in a listener for our permissionButton, and the result will be stored into 
+                    Notifications.permission.
                     <pre>
-let status;
-
 permButton.addEventListener('click', () => {
     let promise = Notification.requestPermission().then((result) => {
-        $status = result;
+        console.log(result);
     });
 });</pre>
                     Now, once we click on the button, a pop-up will appear asking for permission to send notifications.
-                    Depending on the user's response, the possible values stored into status can be 'granted', 'denied',
+                    Depending on the user's response, the possible values stored can be 'granted', 'denied',
                     or 'default'.<br />
                     <img style="border:solid" src="https://raw.githubusercontent.com/ASUpengdis/421Project/main/tutorial/_sample_index_perm-screenshot.png" /> <br />
                     <input id="btn" type="button" value="Click here for permission pop-up">
@@ -166,10 +165,10 @@ notifButton.addEventListener('click', () => {
                     <input id="btn2" type="button" value="Click here for a notification"><br /><br />
                     Depending on whether or not you gave us permission to send notifications, you may or may not have actually seen
                     a notification there. But how did we do that? Before pushing the notification, you should include a check on the
-                    status that we got from asking permission in Step 2. Here is how we did it:
+                    Notification.permission that we got from asking permission in Step 2. Here is how we did it:
                     <pre>
 notifButton.addEventListener('click', () => {
-    if ($status === "granted") {
+    if (Notification.permission === "granted") {
         const notif = new Notification('Our new notification', {});
     }
 });</pre>

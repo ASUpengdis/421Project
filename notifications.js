@@ -7,7 +7,7 @@ var status;
 button.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
     let promise = Notification.requestPermission().then((result) => {
-        $status = result;
+        console.log(result);
     });
 
 });
@@ -23,12 +23,12 @@ button2.addEventListener('click', () => {
             document.getElementById("header").innerText = "Notification pushed";
         });*/
     } else {
-        console.log($status);
+        console.log(Notification.permission);
     }
 });
 
 button3.addEventListener('click', () => {
-    if($status === 'granted') {
+    if (Notification.permission === 'granted') {
         //navigator.serviceWorker.getRegistration().then((reg) => reg.showNotification("This is a persistent notification"));
         navigator.serviceWorker.ready.then((regis) => {
             regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});

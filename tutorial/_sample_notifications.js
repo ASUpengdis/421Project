@@ -2,16 +2,14 @@ let header = document.getElementById("headerText");
 let permButton = document.getElementById("permissionButton");
 let notifButton = document.getElementById("notificationButton");
 
-let status;
-
 permButton.addEventListener('click', () => {
     let promise = Notification.requestPermission().then((result) => {
-        $status = result;
+        console.log(result);
     });
 });
 
 notifButton.addEventListener('click', () => {
-    if ($status === "granted") {
+    if (Notification.permission === "granted") {
         const notif = new Notification('Our new notification', {});
     }
 });
