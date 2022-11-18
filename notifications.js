@@ -16,6 +16,7 @@ perm.addEventListener('click', () => {
 baseNotif.addEventListener('click', () => {
     if (Notification.permission === "granted") {
         const notif = new Notification('Our new notification', {});
+    }
 });
 
 decNotif.addEventListener('click', () => {
