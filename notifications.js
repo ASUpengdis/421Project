@@ -1,10 +1,10 @@
-var perm = document.getElementById("permButton");
-var baseNotif = document.getElementById("baseNotif");
-var decNotif = document.getElementById("decoratedNotif");
-var respNotif = document.getElementById("responsiveNotif");
-var button3 = document.getElementById("btn3");
+let perm = document.getElementById("permButton");
+let baseNotif = document.getElementById("baseNotif");
+let decNotif = document.getElementById("decoratedNotif");
+let respNotif = document.getElementById("responsiveNotif");
+let button3 = document.getElementById("btn3");
 
-var numClicks = 0;
+let numClicks = 0;
 
 perm.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
