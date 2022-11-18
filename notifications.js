@@ -5,6 +5,7 @@ let respNotif = document.getElementById("responsiveNotif");
 let button3 = document.getElementById("btn3");
 
 let numClicks = 0;
+console.log(numClicks);
 
 perm.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
@@ -37,7 +38,10 @@ respNotif.addEventListener('click', () => {
                 body: "Click on me to increase the counter!"
             });
         notif.addEventListener("click", () => {
+            console.log(numClicks);
             numClicks++;
+            console.log(numClicks);
+            console.log($numClicks);
             document.getElementById("headerText").innerText = "You clicked on the notification " + numClicks + " times!";
         });
     }
