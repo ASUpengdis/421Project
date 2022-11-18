@@ -31,10 +31,10 @@ decNotif.addEventListener('click', () => {
 
 respNotif.addEventListener('click', () => {
     if (Notification.permission === "granted") {
-        const notif = new Notification('Our new notification',
+        const notif = new Notification('Our responsive notification',
             {
                 icon: "https://cdn-icons-png.flaticon.com/512/2431/2431996.png",
-                body: "A more detailed message about our notification"
+                body: "Click on me to increase the counter!"
             });
         notif.addEventListener("click", () => {
             document.getElementById("headerText").innerText = "You clicked on the notification " + numClicks + " times!";

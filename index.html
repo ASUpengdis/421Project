@@ -70,7 +70,23 @@
                 <h2>Table of Contents</h2>
                 <ol>
                     <li><a href="#learning-outcomes">Learning Outcomes</a></li>
-                    <li><a href="#learning-activites">Learning Activities</a></li>
+                    <li>
+                        <a href="#learning-activites">Learning Activities</a>
+                        <ul>
+                            <li>
+                                <a href="#basic-web-notifications">Basic Web Notifications</a>
+                                <ul>
+                                    <li><a href="#step1">Step 1: Set-up</a></li>
+                                    <li><a href="#step2">Step 2: Asking for permission</a></li>
+                                    <li><a href="#step3">Step 3: Creating our notification</a></li>
+                                    <li><a href="#step4">Step 4: Adding to our notification</a></li>
+                                    <li><a href="#step5">Step 5: Handling clicks</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#handling-user-input">Handling User Input</a></li>
+                            <li><a href="#cloud-notifications">Cloud Notifications</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#standards">Standards</a></li>
                     <li><a href="#history">History</a></li>
                     <li><a href="#our-opinion">Our Opinion</a></li>
@@ -88,7 +104,7 @@
             </a>
             <a id="learning-activities">
                 <h2>Learning Activities</h2>
-                <h3>Basic Web Notifications</h3>
+                <h3 id="basic-web-notifications">Basic Web Notifications</h3>
                 <p>
                     Modern browsers have begun including the Notifications API to allow developers an easy way to create basic
                     web push notifications. In this section, we will walk through the steps on how to create and handle a
@@ -96,7 +112,7 @@
                 </p>
 
                 <p>
-                    <div class="step">Step 1: Set-up</div>
+                    <div id="step1" class="step">Step 1: Set-up</div>
                     To set-up for our tutorial, we are going to start with 2 seperate files:
                     <ul>
                         <li>index.html</li>
@@ -125,7 +141,7 @@ let notifButton = document.getElementById("notificationButton");</pre>
                 </p>
 
                 <p>
-                    <div class="step">Step 2: Asking for permission</div>
+                    <div id="step2" class="step">Step 2: Asking for permission</div>
                     Before sending any notification, you need to ask the user if they will allow your page to send push
                     notifications [1]. This is done using the requestPermission() function in a promise to wait for the response.
                     We will add this promise in a listener for our permissionButton, and the result will be stored into
@@ -145,7 +161,7 @@ permButton.addEventListener('click', () => {
                 </p>
 
                 <p>
-                    <div class="step">Step 3: Creating our notification</div>
+                    <div id="step3" class="step">Step 3: Creating our notification</div>
                     Once we have asked the user for permission to send them notifications, we need to know how to be able
                     to send them some. Our first step will be to create a Notification object that has two parameters, the Name
                     and the Properties. We will start off leaving the properites field empty, but we will come back and address
@@ -174,12 +190,12 @@ notifButton.addEventListener('click', () => {
 });</pre>
                 </p>
                 <p>
-                    <div class="step">Step 4: Adding to our notification</div>
+                    <div id="step4" class="step">Step 4: Adding to our notification</div>
                     Now that we know how to make a notification, lets learn how to add some new parts into our notification. We will
-                    be focusing on the 'body' and the 'image' elements however there are many more options you can read up on
+                    be focusing on the 'body' and the 'icon' elements however there are many more options you can read up on
                     <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification#instance_properties" target="_blank">here</a> [2].
-                    The body element lets us set a more detailed message to be displayed within our push notification, and the image
-                    element allows us to attatch an image that can either connect to the notification or we can use for our logo. Here
+                    The body element lets us set a more detailed message to be displayed within our push notification, and the icon
+                    element allows us to attatch an image that should be based on the notification or we can use for our logo. Here
                     is how we implement it:
                     <pre>
 notifButton.addEventListener('click', () => {
@@ -192,15 +208,37 @@ notifButton.addEventListener('click', () => {
     }
 });</pre>
                     To see how our notification has changed, press the button below.<br />
-                    <input id="decoratedNotif" type="button" value="Click here for a more detailed notification"><br /><br />
+                    <input id="decoratedNotif" type="button" value="Click here for a more detailed notification"><br />
                 </p>
                 <p>
-                    <div class="step">Step 5: Handling clicks</div>
+                    <div id="step5" class="step">Step 5: Handling clicks</div>
+                    We are almost through the basic notifications, the last thing that we need to be able to do is to have our
+                    application respond to the user clicking on the notification. We can make this happen by adding an event listener
+                    to our pre-existing notification object, and having it listen for a click. Here is how to do that in code:
+                    <pre>
+notifButton.addEventListener('click', () => {
+    if (Notification.permission === "granted") {
+        const notif = new Notification('Our new notification',
+            {
+                icon: "https://cdn-icons-png.flaticon.com/512/2431/2431996.png",
+                body: "A more detailed message about our notification"
+            });
+        notif.addEventListener("click", () => {
+            document.getElementById("headerText").innerText = "You clicked on the notification!";
+        });
+    }
+});</pre>
+                    By adding this event listener to our button, whenever the notification is clicked on we can make changes accordingly. 
+                    In our example, this just changes the text on our screen to display that we clicked on the notification. Below is an 
+                    interactive example that tracks the amount of times you have clicked directly on this notification. <br /><br />
+                    <div id="headerText">You clicked on the notification 0 times!</div>
+                    <input id="responsiveNotif" type="button" value="Click here for a responsive notification">
                 </p>
+
+                <h3 id="handling-user-input">Handling User Input</h3>
                 <input id="btn3" type="button" value="Click here3">
-                <input id="responsiveNotif" type="button" value="Click here for a responsive notification">
-                <h3>Handling User Input</h3>
-                <h3>Cloud Notifications</h3>
+
+                <h3 id="cloud-notifications">Cloud Notifications</h3>
             </a>
             <a id="standards">
                 <h2>Standards</h2>
