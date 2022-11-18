@@ -1,29 +1,43 @@
-var button = document.getElementById("btn");
-var button2 = document.getElementById("btn2");
+var perm = document.getElementById("permButton");
+var baseNotif = document.getElementById("baseNotif");
+var decNotif = document.getElementById("decoratedNotif");
+var respNotif = document.getElementById("responsiveNotif");
 var button3 = document.getElementById("btn3");
 
-var status;
+var numClicks;
 
-button.addEventListener('click', () => {
+perm.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
     let promise = Notification.requestPermission().then((result) => {
         console.log(result);
     });
 
 });
-button2.addEventListener('click', () => {
+baseNotif.addEventListener('click', () => {
     if (Notification.permission === "granted") {
         const notif = new Notification('Our new notification', {});
-        /*const notif = new Notification('Test thing',
+});
+
+decNotif.addEventListener('click', () => {
+    if (Notification.permission === "granted") {
+        const notif = new Notification('Our new notification',
             {
-                icon: "./Assets/Grape_logo.png",
-                body: "hey there gamer"
+                icon: "https://cdn-icons-png.flaticon.com/512/2431/2431996.png",
+                body: "A more detailed message about our notification"
+            });
+    }
+});
+
+respNotif.addEventListener('click', () => {
+    if (Notification.permission === "granted") {
+        const notif = new Notification('Our new notification',
+            {
+                icon: "https://cdn-icons-png.flaticon.com/512/2431/2431996.png",
+                body: "A more detailed message about our notification"
             });
         notif.addEventListener("click", () => {
-            document.getElementById("header").innerText = "Notification pushed";
-        });*/
-    } else {
-        console.log(Notification.permission);
+            document.getElementById("headerText").innerText = "You clicked on the notification " + numClicks + " times!";
+        });
     }
 });
 

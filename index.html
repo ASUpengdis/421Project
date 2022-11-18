@@ -128,7 +128,7 @@ let notifButton = document.getElementById("notificationButton");</pre>
                     <div class="step">Step 2: Asking for permission</div>
                     Before sending any notification, you need to ask the user if they will allow your page to send push
                     notifications [1]. This is done using the requestPermission() function in a promise to wait for the response.
-                    We will add this promise in a listener for our permissionButton, and the result will be stored into 
+                    We will add this promise in a listener for our permissionButton, and the result will be stored into
                     Notifications.permission.
                     <pre>
 permButton.addEventListener('click', () => {
@@ -140,7 +140,7 @@ permButton.addEventListener('click', () => {
                     Depending on the user's response, the possible values stored can be 'granted', 'denied',
                     or 'default'.<br />
                     <img style="border:solid" src="https://raw.githubusercontent.com/ASUpengdis/421Project/main/tutorial/_sample_index_perm-screenshot.png" /> <br />
-                    <input id="btn" type="button" value="Click here for permission pop-up">
+                    <input id="permButton" type="button" value="Click here for permission pop-up">
                     Here is an example of what that would look like.
                 </p>
 
@@ -162,7 +162,7 @@ notifButton.addEventListener('click', () => {
                     uses HTTPS to ensure the notification is sent securely. Because of this, our index.html file will not be able
                     to display a notification unless you are able to host it somewhere like github pages. However to see what it
                     would look like, press the button below.<br />
-                    <input id="btn2" type="button" value="Click here for a notification"><br /><br />
+                    <input id="baseNotif" type="button" value="Click here for a notification"><br /><br />
                     Depending on whether or not you gave us permission to send notifications, you may or may not have actually seen
                     a notification there. But how did we do that? Before pushing the notification, you should include a check on the
                     Notification.permission that we got from asking permission in Step 2. Here is how we did it:
@@ -175,11 +175,30 @@ notifButton.addEventListener('click', () => {
                 </p>
                 <p>
                     <div class="step">Step 4: Adding to our notification</div>
+                    Now that we know how to make a notification, lets learn how to add some new parts into our notification. We will
+                    be focusing on the 'body' and the 'image' elements however there are many more options you can read up on
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification#instance_properties" target="_blank">here</a> [2].
+                    The body element lets us set a more detailed message to be displayed within our push notification, and the image
+                    element allows us to attatch an image that can either connect to the notification or we can use for our logo. Here
+                    is how we implement it:
+                    <pre>
+notifButton.addEventListener('click', () => {
+    if (Notification.permission === "granted") {
+        const notif = new Notification('Our new notification',
+            {
+                icon: "https://cdn-icons-png.flaticon.com/512/2431/2431996.png",
+                body: "A more detailed message about our notification"
+            });
+    }
+});</pre>
+                    To see how our notification has changed, press the button below.<br />
+                    <input id="decoratedNotif" type="button" value="Click here for a more detailed notification"><br /><br />
                 </p>
                 <p>
                     <div class="step">Step 5: Handling clicks</div>
                 </p>
                 <input id="btn3" type="button" value="Click here3">
+                <input id="responsiveNotif" type="button" value="Click here for a responsive notification">
                 <h3>Handling User Input</h3>
                 <h3>Cloud Notifications</h3>
             </a>
@@ -201,14 +220,14 @@ notifButton.addEventListener('click', () => {
                     not span a very long way back in time. The first predecessor to notifications through the web is email communication
                     in which websites and companies can send mass emails to all of their users giving an update on whatever it is they
                     desire. In their article What are Push Notificiations - The Ultimate Guide, Gravitec states that "In 2001, RIM created
-                    the first email alert system" [2]. This was the first appearance of any type of push notification system, and started
+                    the first email alert system" [3]. This was the first appearance of any type of push notification system, and started
                     out as a functionality for the email app that was only on blackberry phones. Todd Grennan highlights that web push
                     stems off of the idea of mobile push, which originated back in 2009 with the rise of smart phones, however historically
                     web notifications have had a much harder time of being widely used and accepted. This reluctance of integration mainly
                     comes from users not trusting web notifications as much as mobile push notifications, causing a large percent of
-                    people to decline websites the permissions necessary [3]. The first addition of web push notifications to browsers 
+                    people to decline websites the permissions necessary [4]. The first addition of web push notifications to browsers 
                     came in 2014 as Google added this functionality into Google Chrome. Slowly, thoroughout the next 4 years or so browsers
-                    such as Opera, Firefox, Safari, and Edge begin to support this functionality [4].
+                    such as Opera, Firefox, Safari, and Edge begin to support this functionality [5].
                 </p>
             </a>
             <a id="our-opinion">
@@ -224,27 +243,35 @@ notifButton.addEventListener('click', () => {
                     <li>
                         [1]
                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API" target="_blank">
-                            MDN. Using the notifications API. Web APIs | MDN. Last retrieved November 16, 2022, <br />
+                            MDN. Using the notifications API. Web APIs | MDN. Last retrieved November 17, 2022, <br />
                             from https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
 
                         </a>
                     </li>
                     <li>
                         [2]
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/notification#instance_properties" target="_blank">
+                            MDN. Notification. Web APIs | MDN. Last retrieved November 17, 2022, <br />
+                            from https://developer.mozilla.org/en-US/docs/Web/API/notification#instance_properties
+
+                        </a>
+                    </li>
+                    <li>
+                        [3]
                         <a href="https://gravitec.net/blog/what-are-push-notifications/" target="_blank">
                             Gravitec. (2019, May 4). What are Push Notifications - The Ultimate Guide. Gravitec. <br />
                             Last retrieved November 16, 2022, from https://gravitec.net/blog/what-are-push-notifications/
                         </a>
                     </li>
                     <li>
-                        [3]
+                        [4]
                         <a href="https://www.braze.com/resources/articles/behind-web-push-notifications" target="_blank">
                             Grennan, T. (2020, January 31). Behind web push notifications: All You Need To Know About Web Messaging's Secret Weapon'. Braze. <br />
                             Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications
                         </a>
                     </li>
                     <li>
-                        [4]
+                        [5]
                         <a href="https://www.braze.com/resources/articles/behind-web-push-notifications-2" target="_blank">
                             Grennan, T. (2020, January 31). Behind web push notifications: History of web push. Braze. <br />
                             Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications-2
