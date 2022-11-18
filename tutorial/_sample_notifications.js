@@ -11,5 +11,7 @@ permButton.addEventListener('click', () => {
 });
 
 notifButton.addEventListener('click', () => {
-    const notif = new Notification('Our new notification', {});
+    if ($status === "granted") {
+        const notif = new Notification('Our new notification', {});
+    }
 });
