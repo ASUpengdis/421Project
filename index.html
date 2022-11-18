@@ -94,9 +94,10 @@
                     web push notifications. In this section, we will walk through the steps on how to create and handle a
                     notification.
                 </p>
+
                 <p>
                     <div class="step">Step 1: Set-up</div>
-                    To set-up for our tutorial, we are going to start with 2 seperate files: 
+                    To set-up for our tutorial, we are going to start with 2 seperate files:
                     <ul>
                         <li>index.html</li>
                         <li>notifications.js</li>
@@ -115,19 +116,20 @@
     &lt;/body&gt;
 &lt;/html&gt;</pre>
                     Opening this file in our browser we get a webpage that looks like this:<br />
-                    <img style="border:solid" src="https://raw.githubusercontent.com/ASUpengdis/421Project/main/tutorial/_sample_index_init-screenshot.png"/> <br /><br />
+                    <img style="border:solid" src="https://raw.githubusercontent.com/ASUpengdis/421Project/main/tutorial/_sample_index_init-screenshot.png" /> <br /><br />
                     Inside of notifications.js, we want to grab a reference to these elements so that we can use them later
                     <pre>
 let header = document.getElementById("headerText");
 let permButton = document.getElementById("permissionButton");
 let notifButton = document.getElementById("notificationButton");</pre>
                 </p>
-                    <p>
-                        <div class="step">Step 2: Asking for permission</div>
-                        Before sending any notification, you need to ask the user if they will allow your page to send push
-                        notifications. This is done using the requestPermission() function in a promise to wait for the response.
-                        We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
-                        <pre>
+
+                <p>
+                    <div class="step">Step 2: Asking for permission</div>
+                    Before sending any notification, you need to ask the user if they will allow your page to send push
+                    notifications. This is done using the requestPermission() function in a promise to wait for the response.
+                    We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
+                    <pre>
 let status;
 
 permButton.addEventListener('click', () => {
@@ -135,15 +137,47 @@ permButton.addEventListener('click', () => {
         $status = result;
     });
 });</pre>
-                        Now, once we click on the button, a pop-up will appear asking for permission to send notifications<br />
-                        <img style="border:solid" src="./tutorial/_sample_index_perm-screenshot.png" /> <br />
-                        <input id="btn" type="button" value="Click here for permission pop-up">
-                        Here is an example of what that would look like.
-                    </p>
-                <input id="btn2" type="button" value="Click here2">
-                <input id="btn3" type="button" value="Click here3">
-                <a href="./Testcodestuff/test.html">press</a>
-                <a href="test2.html">asasdfasdf</a>
+                    Now, once we click on the button, a pop-up will appear asking for permission to send notifications.
+                    Depending on the user's response, the possible values stored into status can be 'granted', 'denied',
+                    or 'default'.<br />
+                    <img style="border:solid" src="https://raw.githubusercontent.com/ASUpengdis/421Project/main/tutorial/_sample_index_perm-screenshot.png" /> <br />
+                    <input id="btn" type="button" value="Click here for permission pop-up">
+                    Here is an example of what that would look like.
+                </p>
+
+                <p>
+                    <div class="step">Step 3: Creating our notification</div>
+                    Once we have asked the user for permission to send them notifications, we need to know how to be able
+                    to send them some. Our first step will be to create a Notification object that has two parameters, the Name
+                    and the Properties. We will start off leaving the properites field empty, but we will come back and address
+                    it later. Here is the code to create a notification:
+                    <pre>
+const notif = new Notification('Our new notification', {});</pre>
+                    This creates a new notification, but we currently have no way of triggering this notification to appear. Let's
+                    add a listener to this code to connect it to our button.
+                    <pre>
+notifButton.addEventListener('click', () => {
+    const notif = new Notification('Our new notification', {});
+});</pre>
+                    Unfortunately, notifications are not able to show from just a local file and requires a hosted website that
+                    uses HTTPS to ensure the notification is sent securely. Because of this, our index.html file will not be able
+                    to display a notification unless you are able to host it somewhere like github pages. However to see what it
+                    would look like, press the button below.<br />
+                    <input id="btn2" type="button" value="Click here for a notification"><br /><br />
+                    Depending on whether or not you gave us permission to send notifications, you may or may not have actually seen
+                    a notification there. But how did we do that? Before pushing the notification, you should include a check on the
+                    status that we got from asking permission in Step 2. Here is how we did it:
+                    <pre>
+notifButton.addEventListener('click', () => {
+    if ($status === "granted") {
+        const notif = new Notification('Our new notification', {});
+    }
+});</pre>
+                </p>
+                <p>
+                    <div class="step">Step 4: Handling clicks</div>
+                </p>
+                    <input id="btn3" type="button" value="Click here3">
                 <h3>Handling User Input</h3>
                 <h3>Cloud Notifications</h3>
             </a>

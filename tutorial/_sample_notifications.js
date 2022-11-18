@@ -9,3 +9,7 @@ permButton.addEventListener('click', () => {
         $status = result;
     });
 });
+
+notifButton.addEventListener('click', () => {
+    const notif = new Notification('Our new notification', {});
+});
