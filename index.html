@@ -127,7 +127,7 @@ let notifButton = document.getElementById("notificationButton");</pre>
                 <p>
                     <div class="step">Step 2: Asking for permission</div>
                     Before sending any notification, you need to ask the user if they will allow your page to send push
-                    notifications. This is done using the requestPermission() function in a promise to wait for the response.
+                    notifications [1]. This is done using the requestPermission() function in a promise to wait for the response.
                     We will add this promise in a listener for our permissionButton, and store the result in a variable called status.
                     <pre>
 let status;
@@ -175,9 +175,12 @@ notifButton.addEventListener('click', () => {
 });</pre>
                 </p>
                 <p>
-                    <div class="step">Step 4: Handling clicks</div>
+                    <div class="step">Step 4: Adding to our notification</div>
                 </p>
-                    <input id="btn3" type="button" value="Click here3">
+                <p>
+                    <div class="step">Step 5: Handling clicks</div>
+                </p>
+                <input id="btn3" type="button" value="Click here3">
                 <h3>Handling User Input</h3>
                 <h3>Cloud Notifications</h3>
             </a>

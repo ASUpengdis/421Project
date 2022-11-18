@@ -12,7 +12,7 @@ button.addEventListener('click', () => {
 
 });
 button2.addEventListener('click', () => {
-    if ($status === "granted") {
+    if (Notification.permission === "granted") {
         const notif = new Notification('Our new notification', {});
         /*const notif = new Notification('Test thing',
             {
