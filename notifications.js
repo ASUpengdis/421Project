@@ -63,4 +63,9 @@ button3.addEventListener('click', () => {
 
 messageChannel.port1.onmessage = (event) => {
     console.log("Notifjs recieved: " + event.data.type);
+    if(event.data.type === "blueType") {
+        document.getElementById("inputDiv").style.backgroundColor = "blue";
+    } else if (event.data.type === "redType") {
+        document.getElementById("inputDiv").style.backgroundColor = "red";
+    }
 }
