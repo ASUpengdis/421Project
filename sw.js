@@ -32,13 +32,15 @@ self.onfetch = function(event) {
     )
 }
 
-let inputDiv = document.getElementById("inputDiv");
+//let inputDiv = document.getElementById("inputDiv");
 
 self.addEventListener("notificationclick",(event) => {
     
     if(event.action === 'blue') {
-        inputDiv.style.background = "blue";
+        console.log("blue pressed");
+  //      inputDiv.style.background = "blue";
     } else if (event.action === 'red') {
-        inputDiv.style.background = "red";
+        console.log("red pressed");
+    //    inputDiv.style.background = "red";
     }
 })
