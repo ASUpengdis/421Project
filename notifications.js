@@ -8,8 +8,12 @@ let numClicks = 0;
 
 const messageChannel = new MessageChannel();
 navigator.serviceWorker.controller.postMessage({
-    type:'INIT_PORT',
+    type: 'INIT_PORT',
+    data: "Testtest"
 },[messageChannel.port2]);
+// navigator.serviceWorker.controller.postMessage({
+//     type:'INIT_PORT',
+// },[messageChannel.port2]);
 
 perm.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
