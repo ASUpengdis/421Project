@@ -54,15 +54,13 @@ respNotif.addEventListener('click', () => {
 
 button3.addEventListener('click', () => {
     if (Notification.permission === 'granted') {
-        //navigator.serviceWorker.getRegistration().then((reg) => reg.showNotification("This is a persistent notification"));
         navigator.serviceWorker.ready.then((regis) => {
-            regis.showNotification("Persistent notification up",{actions:[{action:"blue",title:"blue",icon:"./Assets/Grape_logo.png"},{action:'red', title:"red",icon:"https://cdn-icons-png.flaticon.com/512/2431/2431996.png"}]});
+            regis.showNotification("Persistent notification up",{body:"The buttons will change the color of the div",actions:[{action:"blue",title:"blue",icon:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Pan_Blue_Circle.png/600px-Pan_Blue_Circle.png?20150712063314"},{action:'red', title:"red",icon:"https://emojis.wiki/emoji-pics/mozilla/red-circle-mozilla.png"}]});
         });
     }
 });
 
 messageChannel.port1.onmessage = (event) => {
-    console.log("Notifjs recieved: " + event.data.type);
     if(event.data.type === "blueType") {
         document.getElementById("inputDiv").style.backgroundColor = "blue";
     } else if (event.data.type === "redType") {

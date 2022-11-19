@@ -83,7 +83,15 @@
                                     <li><a href="#step5">Step 5: Handling clicks</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#handling-user-input">Handling User Input</a></li>
+                            <li>
+                                <a href="#handling-user-input">Persistent Notification With Actions</a>
+                                <ul>
+                                    <li><a href="#pstep1">Step 1: Creating a Service Worker</a></li>
+                                    <li><a href="#pstep2">Step 2: Creating a persistent notification</a></li>
+                                    <li><a href="#pstep3">Step 3: Use the MessageChannel API to communicate</a></li>
+                                </ul>
+                            </li>
+
                             <li><a href="#cloud-notifications">Cloud Notifications</a></li>
                         </ul>
                     </li>
@@ -235,8 +243,136 @@ notifButton.addEventListener('click', () => {
                     <input id="responsiveNotif" type="button" value="Click here for a responsive notification">
                 </p>
 
-                <h3 id="handling-user-input">Handling User Input</h3>
+                <h3 id="handling-user-input">Persistent Notifications</h3>
 
+                <p>
+                    <div id="pstep1" class="step">Step 1: Creating a Service Worker</div>
+                    To be able to create notificiations with actions (buttons), you must first create a service worker for your website.
+                    You first need to create a service worker file within your directory. We named ours "sw.js" and populated it with three
+                    events [7]. Oninstall triggers when the browser first sees that a service worker is registered and where you will create a cache.
+                    Onactivate triggers when the service worker is activated in the browser and Onfetch allows for you to send non-network responses.
+
+                    <pre>
+self.oninstall = function() {
+    //creates a new cache with the name parameter
+    caches.open('webNotif').then(function(cache) {
+        //add array of strings of relative paths to files w/in application
+        cache.addAll(['/','index.html'])
+        .then(function() {
+            console.log('cached!');
+        }).catch((err) => {
+            console.log("Error: " + err);
+        })
+    })
+}
+
+self.onactivate = function() {
+    console.log("SW activated");
+}
+
+self.onfetch = function(event) {
+    event.respondWith(
+        caches.match(event.request)
+        .then(function(response){
+            if(response){
+                return response;
+            } else {
+                return fetch(event.request);
+            }
+        })
+    )
+}
+
+                    </pre>
+                    Note: Service workers only work on HTTPS websites or localhost.
+                </p>
+                <p>
+                    You now need to register your service worker onto your web page with this script:
+                    <pre>
+&lt;script&gt;
+    if(navigator.serviceWorker) {
+        navigator.serviceWorker.register('sw.js');
+    }
+&lt;/script&gt;
+                    </pre>
+                </p>
+
+                <p>
+                    <div id="pstep2" class="step">Step 2: Creating a Persistent Notification</div>
+                    The creation of a persistent notification is very similar to the creation of a normal notification. 
+                    You can first add an event listener onto a new button and use the service worker API to create the notification.
+                    When creating a persistent notification, you can add these <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification">attributes</a> [8] 
+                    to the notification. Inside of notification.js:
+
+                    <pre>
+let persistentButton = document.getElementByID("persistentButton");
+
+persistentButton.addEventListener('click', () => {
+    if(Notification.permission === 'granted') {
+        navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification("Persistent notification up",
+                {body:"The buttons will change the color of the div",
+                actions:[{action:"blue", title:"blue", icon:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Pan_Blue_Circle.png/600px-Pan_Blue_Circle.png?20150712063314"},
+                          {action:'red', title:"red", icon:"https://emojis.wiki/emoji-pics/mozilla/red-circle-mozilla.png"}]});
+        });
+    }
+});
+                    </pre>
+                    To find the max number of actions possible for your browser, you can use Notification.maxActions.
+                </p>
+
+                <p>
+                    <div id="pstep3" class="step">Step 3: Use the MessageChannel API to communicate</div>
+                    Due to service workers not having access to the document, you need to find a way to communicate between the service worker and any
+                    script you are running. This can be done using the MessageChannel API to communicate between scripts using messages.
+                    You first need to set up your message channel in your notifications.js and send the port to the Service Worker [9]:
+                    <pre>
+const messageChannel = new MessageChannel();
+navigator.serviceWorker.controller.postMessage({
+    type: 'INIT_PORT'
+}, [messageChannel.port2]);
+                    </pre>
+
+                    We then need to save the port into the Service Worker by adding the following in sw.js:
+                    <pre>
+let port;
+
+//create an event listener to listen for messages from notification.js
+self.addEventListener("message", event => {
+    if(event.data && event.data.type === 'INIT_PORT') {
+        port = event.ports[0];
+    }
+})
+                    </pre>
+
+                    With the saved port, we can now send messages from sw.js to notification.js with the "onnotificationclick" event that is only available to
+                    service workers.
+                    <pre>
+self.addEventListener("notificationclick",(event) => {
+
+    //event.action gets the name of the action that you created with showNotification();
+    if(event.action === 'blue') {
+        getVersionPort.postMessage({type:"blueType"});
+
+    } else if (event.action === 'red') {
+        getVersionPort.postMessage({type:"redType"});
+    }
+})
+                    </pre>
+                    In your notification.js file, you can now create an event listener for receiving messages from sw.js and handle the event accordingly.
+                    <pre>
+messageChannel.port1.onmessage = (event) => {
+    //the inputDiv is an element in the DOM
+    if(event.data.type === "blueType") {
+        document.getElementById("inputDiv").style.backgroundColor = "blue";
+    } else if (event.data.type === "redType") {
+        document.getElementById("inputDiv").style.backgroundColor = "red";
+    }
+}                        
+                    </pre>
+                    
+                    The result of all the previous code can be seen below:
+                </p>
                 <div id="inputDiv" style="background:white; border: 1px solid black">This color will change based on your input</div>
                 <br>
                 <input id="btn3" type="button" value="Click here for a persistent notification with buttons">
@@ -331,7 +467,30 @@ notifButton.addEventListener('click', () => {
                             Valdez, L. (2022, March 2). 5 Benefits of Web Push Notifications. Freestar. <br />
                             Last retrieved November 18, 2022, from https://freestar.com/web-push-notifications-benefits/
                         </a>
-</li>
+                    </li>
+                    <li>
+                        [7]
+                        <a href="https://www.youtube.com/watch?v=5JAZcSQ2u1I" target="_blank">
+                            Bourlon, C. (2019, May 4). Write Your First Service Worker <br />
+                            Last retrieved November 18, 2022, from https://www.youtube.com/watch?v=5JAZcSQ2u1I
+                        </a>
+                    </li>
+                    <li>
+                        [8]
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification" target="_blank">
+                            MDN. ServiceWorkerRegistration.showNotification() | MDN. Last retrieved November 18, 2022, <br />
+                            from https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
+
+                        </a>
+                    </li>
+                    <li>
+                        [9]
+                        <a href="https://felixgerschau.com/how-to-communicate-with-service-workers/" target="_blank">
+                            Gerschau, F. How to communicate with Service Workers. Last retrieved November 18, 2022, <br />
+                            from https://felixgerschau.com/how-to-communicate-with-service-workers/
+
+                        </a>
+                    </li>
                 </ul>
             </a>
             <a id="resource-list">
@@ -340,7 +499,9 @@ notifButton.addEventListener('click', () => {
                     <li><a href="https://www.w3schools.com/howto/howto_css_parallax.asp" target="_blank">Stable Image Background Tutorial</a></li>
                     <li><a href="https://d24oheizjk2k1o.cloudfront.net/wp-content/uploads/2016/10/26190652/The-Difference-Between-Email-and-Web-Push-Notifications.jpg" target="_blank">Background Image</a></li>
                     <li><a href="https://notifications.spec.whatwg.org/#using-actions" target="_blank">Notifications API Research</a></li>
-                    <li><a href="https://whatwebcando.today/local-notifications.html" target="_blank">Persistent Notifications</a></li>
+                    <li><a href="https://whatwebcando.today/local-notifications.html" target="_blank">Persistent Notifications Example</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification" target="_blank">Persistent Notification API Documentation</a></li>
+                    <li><a href="https://felixgerschau.com/how-to-communicate-with-service-workers/" target="_blank">MessageChannel API</a></li>
                 </ul>
             </a>
         </div>
