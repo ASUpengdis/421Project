@@ -55,14 +55,14 @@ respNotif.addEventListener('click', () => {
 button3.addEventListener('click', () => {
     if (Notification.permission === 'granted') {
         navigator.serviceWorker.ready.then((regis) => {
-            regis.showNotification("Persistent notification up",{body:"The buttons will change the color of the div",actions:[{action:"blue",title:"blue",icon:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/512px-Solid_blue.svg.png?20150316143734"},{action:'red', title:"red",icon:"https://emojis.wiki/emoji-pics/mozilla/red-circle-mozilla.png"}]});
+            regis.showNotification("Persistent notification up",{body:"The buttons will change the color of the div",actions:[{action:"yellow",title:"yellow",icon:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/512px-Solid_blue.svg.png?20150316143734"},{action:'red', title:"red",icon:"https://emojis.wiki/emoji-pics/mozilla/red-circle-mozilla.png"}]});
         });
     }
 });
 
 messageChannel.port1.onmessage = (event) => {
-    if(event.data.type === "blueType") {
-        document.getElementById("inputDiv").style.backgroundColor = "blue";
+    if(event.data.type === "yellowType") {
+        document.getElementById("inputDiv").style.backgroundColor = "yellow";
     } else if (event.data.type === "redType") {
         document.getElementById("inputDiv").style.backgroundColor = "red";
     }

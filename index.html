@@ -249,7 +249,7 @@ notifButton.addEventListener('click', () => {
                     <div id="pstep1" class="step">Step 1: Creating a Service Worker</div>
                     To be able to create notificiations with actions (buttons), you must first create a service worker for your website.
                     You first need to create a service worker file within your directory. We named ours "sw.js" and populated it with three
-                    events [7]. Oninstall triggers when the browser first sees that a service worker is registered and where you will create a cache.
+                    events [3]. Oninstall triggers when the browser first sees that a service worker is registered and where you will create a cache.
                     Onactivate triggers when the service worker is activated in the browser and Onfetch allows for you to send non-network responses.
 
                     <pre>
@@ -301,7 +301,7 @@ self.onfetch = function(event) {
                     <div id="pstep2" class="step">Step 2: Creating a Persistent Notification</div>
                     The creation of a persistent notification is very similar to the creation of a normal notification. 
                     You can first add an event listener onto a new button and use the service worker API to create the notification.
-                    When creating a persistent notification, you can add these <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification">attributes</a> [8] 
+                    When creating a persistent notification, you can add these <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification">attributes</a> [4] 
                     to the notification. Inside of notification.js:
 
                     <pre>
@@ -312,7 +312,7 @@ persistentButton.addEventListener('click', () => {
         navigator.serviceWorker.ready.then((registration) => {
             registration.showNotification("Persistent notification up",
                 {body:"The buttons will change the color of the div",
-                actions:[{action:"blue", title:"blue", icon:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/512px-Solid_blue.svg.png?20150316143734"},
+                actions:[{action:"yellow", title:"yellow", icon:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/512px-Solid_blue.svg.png?20150316143734"},
                           {action:'red', title:"red", icon:"https://emojis.wiki/emoji-pics/mozilla/red-circle-mozilla.png"}]});
         });
     }
@@ -325,7 +325,7 @@ persistentButton.addEventListener('click', () => {
                     <div id="pstep3" class="step">Step 3: Use the MessageChannel API to communicate</div>
                     Due to service workers not having access to the document, you need to find a way to communicate between the service worker and any
                     script you are running. This can be done using the MessageChannel API to communicate between scripts using messages.
-                    You first need to set up your message channel in your notifications.js and send the port to the Service Worker [9]:
+                    You first need to set up your message channel in your notifications.js and send the port to the Service Worker [5]:
                     <pre>
 const messageChannel = new MessageChannel();
 navigator.serviceWorker.controller.postMessage({
@@ -351,8 +351,8 @@ self.addEventListener("message", event => {
 self.addEventListener("notificationclick",(event) => {
 
     //event.action gets the name of the action that you created with showNotification();
-    if(event.action === 'blue') {
-        getVersionPort.postMessage({type:"blueType"});
+    if(event.action === 'yellow') {
+        getVersionPort.postMessage({type:"yellowType"});
 
     } else if (event.action === 'red') {
         getVersionPort.postMessage({type:"redType"});
@@ -363,8 +363,8 @@ self.addEventListener("notificationclick",(event) => {
                     <pre>
 messageChannel.port1.onmessage = (event) => {
     //the inputDiv is an element in the DOM
-    if(event.data.type === "blueType") {
-        document.getElementById("inputDiv").style.backgroundColor = "blue";
+    if(event.data.type === "yellowType") {
+        document.getElementById("inputDiv").style.backgroundColor = "yellow";
     } else if (event.data.type === "redType") {
         document.getElementById("inputDiv").style.backgroundColor = "red";
     }
@@ -397,14 +397,14 @@ messageChannel.port1.onmessage = (event) => {
                     not span a very long way back in time. The first predecessor to notifications through the web is email communication
                     in which websites and companies can send mass emails to all of their users giving an update on whatever it is they
                     desire. In their article What are Push Notificiations - The Ultimate Guide, Gravitec states that "In 2001, RIM created
-                    the first email alert system" [3]. This was the first appearance of any type of push notification system, and started
+                    the first email alert system" [6]. This was the first appearance of any type of push notification system, and started
                     out as a functionality for the email app that was only on blackberry phones. Todd Grennan highlights that web push
                     stems off of the idea of mobile push, which originated back in 2009 with the rise of smart phones, however historically
                     web notifications have had a much harder time of being widely used and accepted. This reluctance of integration mainly
                     comes from users not trusting web notifications as much as mobile push notifications, causing a large percent of
-                    people to decline websites the permissions necessary [4]. The first addition of web push notifications to browsers 
+                    people to decline websites the permissions necessary [7]. The first addition of web push notifications to browsers 
                     came in 2014 as Google added this functionality into Google Chrome. Slowly, thoroughout the next 4 years or so browsers
-                    such as Opera, Firefox, Safari, and Edge begin to support this functionality [5].
+                    such as Opera, Firefox, Safari, and Edge begin to support this functionality [8].
                 </p>
             </a>
             <a id="our-opinion">
@@ -414,10 +414,10 @@ messageChannel.port1.onmessage = (event) => {
                     comfortable with the conceptof web push and help it to grow into a mainstream feature on many websites. We think that 
                     this is overall a positive for both web developers and web users. On the side of the web devs, push notifications help 
                     to retain visitors and keep people coming back to your site, as well as providing a distinct advantage to marketing by 
-                    allowing you direct access to the customers [6]. These benefits can lead to more revenue on your site and help to 
+                    allowing you direct access to the customers [9]. These benefits can lead to more revenue on your site and help to 
                     push your site more into the mainstream attention. As for the web users, more websites utilizing push notifications can 
                     help to build you a more customized experience on the website, "based on both [your] own preferences as well as 
-                    historical click behaviour" [6]. With this, users will see more of the content that they would like to see and have it 
+                    historical click behaviour" [9]. With this, users will see more of the content that they would like to see and have it 
                     all delivered directly to them through notifications.
                 </p>
             </a>
@@ -442,41 +442,13 @@ messageChannel.port1.onmessage = (event) => {
                     </li>
                     <li>
                         [3]
-                        <a href="https://gravitec.net/blog/what-are-push-notifications/" target="_blank">
-                            Gravitec. (2019, May 4). What are Push Notifications - The Ultimate Guide. Gravitec. <br />
-                            Last retrieved November 16, 2022, from https://gravitec.net/blog/what-are-push-notifications/
-                        </a>
-                    </li>
-                    <li>
-                        [4]
-                        <a href="https://www.braze.com/resources/articles/behind-web-push-notifications" target="_blank">
-                            Grennan, T. (2020, January 31). Behind web push notifications: All You Need To Know About Web Messaging's Secret Weapon'. Braze. <br />
-                            Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications
-                        </a>
-                    </li>
-                    <li>
-                        [5]
-                        <a href="https://www.braze.com/resources/articles/behind-web-push-notifications-2" target="_blank">
-                            Grennan, T. (2020, January 31). Behind web push notifications: History of web push. Braze. <br />
-                            Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications-2
-                        </a>
-                    </li>
-                    <li>
-                        [6]
-                        <a href="https://freestar.com/web-push-notifications-benefits/" target="_blank">
-                            Valdez, L. (2022, March 2). 5 Benefits of Web Push Notifications. Freestar. <br />
-                            Last retrieved November 18, 2022, from https://freestar.com/web-push-notifications-benefits/
-                        </a>
-                    </li>
-                    <li>
-                        [7]
                         <a href="https://www.youtube.com/watch?v=5JAZcSQ2u1I" target="_blank">
                             Bourlon, C. (2019, May 4). Write Your First Service Worker <br />
                             Last retrieved November 18, 2022, from https://www.youtube.com/watch?v=5JAZcSQ2u1I
                         </a>
                     </li>
                     <li>
-                        [8]
+                        [4]
                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification" target="_blank">
                             MDN. ServiceWorkerRegistration.showNotification() | MDN. Last retrieved November 18, 2022, <br />
                             from https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
@@ -484,11 +456,39 @@ messageChannel.port1.onmessage = (event) => {
                         </a>
                     </li>
                     <li>
-                        [9]
+                        [5]
                         <a href="https://felixgerschau.com/how-to-communicate-with-service-workers/" target="_blank">
                             Gerschau, F. How to communicate with Service Workers. Last retrieved November 18, 2022, <br />
                             from https://felixgerschau.com/how-to-communicate-with-service-workers/
 
+                        </a>
+                    </li>
+                    <li>
+                        [6]
+                        <a href="https://gravitec.net/blog/what-are-push-notifications/" target="_blank">
+                            Gravitec. (2019, May 4). What are Push Notifications - The Ultimate Guide. Gravitec. <br />
+                            Last retrieved November 16, 2022, from https://gravitec.net/blog/what-are-push-notifications/
+                        </a>
+                    </li>
+                    <li>
+                        [7]
+                        <a href="https://www.braze.com/resources/articles/behind-web-push-notifications" target="_blank">
+                            Grennan, T. (2020, January 31). Behind web push notifications: All You Need To Know About Web Messaging's Secret Weapon'. Braze. <br />
+                            Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications
+                        </a>
+                    </li>
+                    <li>
+                        [8]
+                        <a href="https://www.braze.com/resources/articles/behind-web-push-notifications-2" target="_blank">
+                            Grennan, T. (2020, January 31). Behind web push notifications: History of web push. Braze. <br />
+                            Last retrieved November 15, 2022, from https://www.braze.com/resources/articles/behind-web-push-notifications-2
+                        </a>
+                    </li>
+                    <li>
+                        [9]
+                        <a href="https://freestar.com/web-push-notifications-benefits/" target="_blank">
+                            Valdez, L. (2022, March 2). 5 Benefits of Web Push Notifications. Freestar. <br />
+                            Last retrieved November 18, 2022, from https://freestar.com/web-push-notifications-benefits/
                         </a>
                     </li>
                 </ul>
