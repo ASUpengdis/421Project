@@ -6,6 +6,11 @@ let button3 = document.getElementById("btn3");
 
 let numClicks = 0;
 
+const messageChannel = new MessageChannel();
+navigator.serviceWorker.controller.postMessage({
+    type:'INIT_PORT',
+},[messageChannel.port2]);
+
 perm.addEventListener('click', () => {
     //requestPermission works on chrome, not firefox
     let promise = Notification.requestPermission().then((result) => {
@@ -52,13 +57,6 @@ button3.addEventListener('click', () => {
     }
 });
 
-// self.addEventListener("notificationclick",(event) => {
-    
-//     if(event.action === 'blue') {
-//         console.log("blue pressed");
-//         document.getElementById("inputDiv").style.backgroundColor = "blue";
-//     } else if (event.action === 'red') {
-//         console.log("red pressed");
-//         document.getElementById("inputDiv").style.backgroundColor = "red";
-//     }
-// })
+messageChannel.port1.onmessage = (event) => {
+    console.log("Notifjs recieved: " + event.data);
+}

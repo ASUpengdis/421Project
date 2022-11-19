@@ -1,6 +1,5 @@
 //https://www.youtube.com/watch?v=5JAZcSQ2u1I
 //Service workers have to be ran on HTTPS or on localhost
-
 //triggered first when the browser sees that a service worker is registered
 self.oninstall = function() {
     //creates a new cache with the name parameter
@@ -32,16 +31,21 @@ self.onfetch = function(event) {
     )
 }
 
-//let inputDiv = document.getElementById("inputDiv");
+let getVersionPort;
+self.addEventListener("message", event => {
+    if(event.data && event.data.type === "INIT_PORT") {
+        getVersionPort = event.ports[0];
+    }
+})
 
 self.addEventListener("notificationclick",(event) => {
     
     if(event.action === 'blue') {
         console.log("blue pressed");
-        
-        document.getElementById("inputDiv").style.backgroundColor = "blue";
+        getVersionPort.postMessage({payload: "blue"});
+
     } else if (event.action === 'red') {
         console.log("red pressed");
-        document.getElementById("inputDiv").style.backgroundColor = "red";
+        getVersionPort.postMessage({payload: "red"});
     }
 })
