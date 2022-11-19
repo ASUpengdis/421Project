@@ -39,9 +39,9 @@ self.addEventListener("notificationclick",(event) => {
     if(event.action === 'blue') {
         console.log("blue pressed");
         
-  //      inputDiv.style.background = "blue";
+        document.getElementById("inputDiv").style.backgroundColor = "blue";
     } else if (event.action === 'red') {
         console.log("red pressed");
-    //    inputDiv.style.background = "red";
+        document.getElementById("inputDiv").style.backgroundColor = "red";
     }
 })
