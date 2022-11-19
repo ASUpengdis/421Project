@@ -52,14 +52,13 @@ button3.addEventListener('click', () => {
     }
 });
 
+let inputDiv = document.getElementById("inputDiv");
+
 self.addEventListener("notificationclick",(event) => {
     
     if(event.action === 'blue') {
-        console.log("blue pressed");
-        
-  //      inputDiv.style.background = "blue";
+        inputDiv.style.background = "blue";
     } else if (event.action === 'red') {
-        console.log("red pressed");
-    //    inputDiv.style.background = "red";
+        inputDiv.style.background = "red";
     }
 })
