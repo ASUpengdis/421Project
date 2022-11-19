@@ -49,6 +49,7 @@ button3.addEventListener('click', () => {
         navigator.serviceWorker.ready.then((regis) => {
             regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});
             regis.addEventListener('notificationclick',(event)=> {
+                console.log(event);
                 if(event.action === 'push') {
                     console.log("notification button pushed");
                 }
