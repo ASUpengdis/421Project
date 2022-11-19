@@ -52,13 +52,11 @@ button3.addEventListener('click', () => {
     }
 });
 
-let inputDiv = document.getElementById("inputDiv");
-
 self.addEventListener("notificationclick",(event) => {
     
     if(event.action === 'blue') {
-        inputDiv.style.background = "blue";
+        document.getElementById("inputDiv").style.backgroundColor = "blue";
     } else if (event.action === 'red') {
-        inputDiv.style.background = "red";
+        document.getElementById("inputDiv").style.backgroundColor = "red";
     }
 })
