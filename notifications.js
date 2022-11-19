@@ -49,15 +49,13 @@ button3.addEventListener('click', () => {
         navigator.serviceWorker.ready.then((regis) => {
             const perNotif = regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});
 
-            perNotif.addEventListener('click', (event) => {
-                console.log("Persistent notif clicked");
+            
+            regis.addEventListener('click',(event)=> {
+                console.log(event);
+                if(event.action === 'push') {
+                    console.log("notification button pushed");
+                }
             })
-            // regis.addEventListener('notificationclick',(event)=> {
-            //     console.log(event);
-            //     if(event.action === 'push') {
-            //         console.log("notification button pushed");
-            //     }
-            // })
         });
     }
 });
