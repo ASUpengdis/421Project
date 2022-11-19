@@ -55,8 +55,10 @@ button3.addEventListener('click', () => {
 self.addEventListener("notificationclick",(event) => {
     
     if(event.action === 'blue') {
+        console.log("blue pressed");
         document.getElementById("inputDiv").style.backgroundColor = "blue";
     } else if (event.action === 'red') {
+        console.log("red pressed");
         document.getElementById("inputDiv").style.backgroundColor = "red";
     }
 })
