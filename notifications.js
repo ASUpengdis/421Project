@@ -47,15 +47,7 @@ button3.addEventListener('click', () => {
     if (Notification.permission === 'granted') {
         //navigator.serviceWorker.getRegistration().then((reg) => reg.showNotification("This is a persistent notification"));
         navigator.serviceWorker.ready.then((regis) => {
-            regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});
-
-            
-            // regis.addEventListener('click',(event)=> {
-            //     console.log(event);
-            //     if(event.action === 'push') {
-            //         console.log("notification button pushed");
-            //     }
-            // })
+            regis.showNotification("Persistent notification up",{actions:[{action:"blue",title:"blue",icon:"./Assets/Grape_logo.png"},{action:'red', title:"red",icon:"https://cdn-icons-png.flaticon.com/512/2431/2431996.png"}]});
         });
     }
 });
