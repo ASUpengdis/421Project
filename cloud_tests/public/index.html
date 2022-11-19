@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <button id='foo'>Request permission</button>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getMessaging, getToken, onMessage} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGDS6AJDn5lmiKZdKuILMAsmWeAmBCq6w",
+            authDomain: "ser421-22c-push-notifs.firebaseapp.com",
+            projectId: "ser421-22c-push-notifs",
+            storageBucket: "ser421-22c-push-notifs.appspot.com",
+            messagingSenderId: "911821516394",
+            appId: "1:911821516394:web:5ada6762a01436cd0b6413"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+
+        onMessage(messaging, (payload) => {
+            console.log('Message received. ', payload);
+            // Customize notification here
+            const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+                body: payload.notification.body,
+            };
+            const notif = new Notification(notificationTitle, notificationOptions);
+            // self.registration.showNotification(notificationTitle,
+            //     notificationOptions);
+        });
+
+        function get_thing(){
+            getToken(messaging, {vapidKey: 'BJoWf2Xuk0XgCaGk4h2om_xPzePH5Kw5l_j4RRmqKOB44CLU2z5fKzkHzXTdKVzQOwlMAawhi3AjzQzOFIYpBNc'}).then((currentToken) => {
+                if (currentToken) {
+                    console.log(currentToken)
+                    // Send the token to your server and update the UI if necessary
+                    // ...
+                } else {
+                    // Show permission request UI
+                    console.log('No registration token available. Request permission to generate one.');
+                    // ...
+                }
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+                // ...
+            });
+
+            console.log('Requesting permission...');
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                }
+            })
+        }
+
+        document.getElementById ("foo").addEventListener ("click", get_thing, false);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
