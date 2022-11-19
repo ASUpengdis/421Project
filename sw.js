@@ -31,3 +31,10 @@ self.onfetch = function(event) {
         })
     )
 }
+
+self.addEventListener("notificationclick",(event) => {
+    console.log("event pushed");
+    if(event.action === 'push') {
+        console.log("Push action pressed");
+    }
+})
