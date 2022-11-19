@@ -62,5 +62,5 @@ button3.addEventListener('click', () => {
 });
 
 messageChannel.port1.onmessage = (event) => {
-    console.log("Notifjs recieved: " + event.data);
+    console.log("Notifjs recieved: " + event.data.type);
 }

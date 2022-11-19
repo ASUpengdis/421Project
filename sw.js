@@ -42,10 +42,10 @@ self.addEventListener("notificationclick",(event) => {
     
     if(event.action === 'blue') {
         console.log("blue pressed");
-        getVersionPort.postMessage({payload: "blue"});
+        getVersionPort.postMessage({type:"blueType", payload: "blue"});
 
     } else if (event.action === 'red') {
         console.log("red pressed");
-        getVersionPort.postMessage({payload: "red"});
+        getVersionPort.postMessage({type:"redType", payload: "red"});
     }
 })
