@@ -47,13 +47,17 @@ button3.addEventListener('click', () => {
     if (Notification.permission === 'granted') {
         //navigator.serviceWorker.getRegistration().then((reg) => reg.showNotification("This is a persistent notification"));
         navigator.serviceWorker.ready.then((regis) => {
-            regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});
-            regis.addEventListener('notificationclick',(event)=> {
-                console.log(event);
-                if(event.action === 'push') {
-                    console.log("notification button pushed");
-                }
+            const perNotif = regis.showNotification("Persistent notification up",{actions:[{action:"push",title:"Push here",icon:"./Assets/Grape_logo.png"}]});
+
+            perNotif.addEventListener('click', (event) => {
+                console.log("Persistent notif clicked");
             })
+            // regis.addEventListener('notificationclick',(event)=> {
+            //     console.log(event);
+            //     if(event.action === 'push') {
+            //         console.log("notification button pushed");
+            //     }
+            // })
         });
     }
 });
