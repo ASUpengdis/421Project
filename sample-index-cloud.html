@@ -30,6 +30,7 @@
             getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
                 if (currentToken) {
                     console.log(currentToken)
+                    document.getElementById("tokenLabel").textContent = String(currentToken)
                 }
             }).catch((err) => {
                 console.log('An error occurred while retrieving token. ', err);
@@ -52,5 +53,6 @@
     <div id="headerText"> Let's Make a Notification! </div>
     <input id="permissionButton" type="button" value="Click for permission">
     <input id="notificationButton" type="button" value="Click for a push notification">
+    <label id="tokenLabel"></label>
 </body>
 </html>
