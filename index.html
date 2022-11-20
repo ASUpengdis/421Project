@@ -393,9 +393,94 @@ onMessage(messaging, (payload) => {
                     </code>
                 </pre>
                 <p>
-                    Next we need to create a service worker for
+                    Next we need to create a service worker in a file called <b>firebase-messaging-sw.js</b> in the <b>root directory of our website</b> for firebase to be
+                    able to register with our client. The simplest way to do this involves using the older v8 Firebase API
+                    which works better with being in a separate file. We must be careful to use the same <code>firebaseConfig</code>
+                    that we used earlier in our HTML. This service worker needs to have a dummy event handler for the message
+                    receipt, but it does not actually need to do anything. The handler in our main html will handle the
+                    notification.
                 </p>
+                <pre>
+                    <code>
+// Scripts for firebase and firebase messaging
+//This needs to be version **8**.2.0
+importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
 
+// Initialize the Firebase app in the service worker by passing the generated config
+const firebaseConfig = {
+            //YOUR FIREBASE CONFIG HERE
+};
+
+firebase.initializeApp(firebaseConfig);
+
+// Initialize firebase messaging
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(function(payload) {
+    //do nothing
+});
+                    </code>
+                </pre>
+                
+                Additionally, the full html code you should have at this point is
+                <pre>
+                    <code>
+&lt!DOCTYPE html>
+&lthtml>
+&lthead>
+    &ltscript src="_sample_notifications.js" defer>&lt/script>
+&lt/head>
+&ltbody>
+    &ltscript type="module" defer>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getMessaging, getToken, onMessage} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            //YOUR FIREBASE CONFIG HERE
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+
+        function register_client() {
+            //generate token
+            getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
+                if (currentToken) {
+                    console.log(currentToken)
+                }
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+            });
+        }
+        document.getElementById ("permissionButton").addEventListener("click", register_client, false);
+
+        //handler for received message
+        onMessage(messaging, (payload) => {
+            console.log('Message received. ', payload);
+
+            //extract notification payload title and message body
+            const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+                body: payload.notification.body,
+            };
+            const notif = new Notification(notificationTitle, notificationOptions);
+        });
+    &lt/script>
+    &ltdiv id="headerText"> Let's Make a Notification! &lt/div>
+    &ltinput id="permissionButton" type="button" value="Click for permission">
+    &ltinput id="notificationButton" type="button" value="Click for a push notification">
+&lt/body>
+&lt/html>
+                    </code>
+                </pre>
+                <div class="step">Step 5: Send a Notification</div>
+                
 
 
 
