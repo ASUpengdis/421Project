@@ -120,7 +120,7 @@
                 </p>
 
                 <p>
-                    <div id="step1" class="step">Step 1: Set-up</div>
+                <div class="step">Step 1: Set-up</div>
                     To set-up for our tutorial, we are going to start with 2 seperate files:
                     <ul>
                         <li>index.html</li>
@@ -378,6 +378,277 @@ messageChannel.port1.onmessage = (event) => {
                 <input id="btn3" type="button" value="Click here for a persistent notification with buttons">
 
                 <h3 id="cloud-notifications">Cloud Notifications</h3>
+                <p>
+                    For remote notifications through the cloud, we can use <a href="https://firebase.google.com/">Google Firebase</a>.
+                </p>
+
+                <div class="step">Step 1: Create a Firebase Project</div>
+                <p>
+                    First, sign up or log in and click "Go to Console" <br>
+                    <img style="border:solid" src="Assets/firebase/firebase_login.png"> <br>
+                </p>
+                <p>
+                    Next, create a new project.<br>
+                    <img style="border:solid" src="Assets/firebase/firebase_add_project.png"> <br>
+                </p>
+                <p>
+                    Enter a name for the project. For this tutorial, we're going to call it "notifications-tutorial". <br>
+                    <img style="border:solid" src="Assets/firebase/firebase_add_project_2.png"> <br>
+                </p>
+                <p>
+                    When prompted about Google Analytics, select no. <br>
+                    <img style="border:solid" src="Assets/firebase/firebase_add_project_3.png"> <br>
+                </p>
+                <p>
+                    Click "Create Project", and wait for Firebase to create your project for you. This may take several minutes.
+                </p>
+
+                <div class="step">Step 2: Register a Webapp</div>
+                <p>
+                    After creating the Firebase project, you should be on the project's dashboard. Click the Webapp icon
+                    to register a webapp with your firebase project.<br>
+                    <img style="border:solid" src="Assets/firebase/project_dashboard.png"> <br>
+                </p>
+                <p>
+                    Enter a nickname for the webapp. For this tutorial we'll use "notification-tutorial-webapp". You can
+                    also at this point choose to setup firebase hosting for your website, but for this tutorial we're
+                    going to assume you are hosting your website elsewhere.<br>
+                    Click "Register app".<br>
+                    <img style="border:solid" src="Assets/firebase/setup_webapp.png"> <br>
+                </p>
+                <p>
+                    Select "Use a &ltscript&gt tag" instead of "Use npm". This allows us to make a simple standalone webapp
+                    that uses the Firebase API rather than depending on Node JS packages. You will be shown an html script
+                    element that imports the Firebase API and initializes the app with your authentication keys. <b>Your
+                    <code>firebaseConfig</code> will be unique to your webapp, so make sure you hold on to it and use it
+                    when appropriate.</b> Copy this text to your clipboard.<br>
+                    <img style="border:solid" src="Assets/firebase/setup_webapp_2.png"> <br>
+                </p>
+                <p>
+                    Paste the script element into your html file from earlier. Note that we have added a "defer" attribute in order to ensure the script loads at the correct time.<br>
+                </p>
+                <pre>
+                    <code>
+&lt!DOCTYPE html>
+&lthtml>
+&lthead>
+    &ltscript src="_sample_notifications.js" defer>&lt/script>
+&lt/head>
+&ltbody>
+    &ltscript type="module" defer>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            //YOUR FIREBASE CONFIG HERE
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    &lt/script>
+    &ltdiv id="headerText"> Let's Make a Notification! &lt/div>
+    &ltinput id="permissionButton" type="button" value="Click for permission">
+    &ltinput id="notificationButton" type="button" value="Click for a push notification">
+&lt/body>
+&lt/html>
+                    </code>
+                </pre>
+                <p>
+                    Next, we import the Firebase messaging API and get a <code>messaging</code> object that allows us to
+                    register our client with Firebase to be able to receive messages.
+                </p>
+                <pre>
+                    <code>
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+<b>import { getMessaging, getToken, onMessage} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js";</b>
+...
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+<b>const messaging = getMessaging(app);</b>
+                    </code>
+                </pre>
+
+                <div class="step">Step 3: Configure Notification Certificate</div>
+                <p>
+                    Going back to our firebase dashboard, now we need to set up a certificate for Web Push Notifications.
+                    Click the cog wheel, click "Project Settings", go to the "Cloud messaging Tab", scroll down and click
+                    "Generate key pair".<br>
+                    <img style="border:solid" src="Assets/firebase/vapid_1.png"> <br>
+                    <img style="border:solid" src="Assets/firebase/vapid_2.png"> <br>
+                    <img style="border:solid" src="Assets/firebase/vapid_3.png"> <br>
+                </p>
+                <p>
+                    A key will then be displayed to you. <b>This key is unique to you so you must copy it and paste it
+                    anywhere [WEB PUSH HERE] is in the example code.</b>
+                    <img style="border:solid" src="Assets/firebase/vapid_4.png"> <br>
+                </p>
+
+                <div class="step">Step 4: Set Up Notification Reception</div>
+                <p>
+                    Back in our html, we need to add code to register the client with firebase using the key we just generated.
+                    We also need to print the token that we get back so that we can use it to reference our client when we
+                    actually send a notification. This code itself also generates a request for notification permissions,
+                    so we want to make sure it triggers from the button press instead of automatically.
+                </p>
+                <pre>
+                    <code>
+function register_client() {
+    //generate token
+    getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
+        if (currentToken) {
+            console.log(currentToken)
+        }
+    }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+    });
+}
+document.getElementById ("permissionButton").addEventListener("click", register_client, false);
+                    </code>
+                </pre>
+                <p>
+                    We also need to set up an event handler that actually presents the notification to the user upon
+                    receipt from firebase.
+                </p>
+                <pre>
+                    <code>
+//handler for received message
+onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+
+    //extract notification payload title and message body
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+    };
+    const notif = new Notification(notificationTitle, notificationOptions);
+});
+                    </code>
+                </pre>
+                <p>
+                    Next we need to create a service worker in a file called <b>firebase-messaging-sw.js</b> in the <b>root directory of our website</b> for firebase to be
+                    able to register with our client. The simplest way to do this involves using the older v8 Firebase API
+                    which works better with being in a separate file. We must be careful to use the same <code>firebaseConfig</code>
+                    that we used earlier in our HTML. This service worker needs to have a dummy event handler for the message
+                    receipt, but it does not actually need to do anything. The handler in our main html will handle the
+                    notification.
+                </p>
+                <pre>
+                    <code>
+// Scripts for firebase and firebase messaging
+//This needs to be version **8**.2.0
+importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
+
+// Initialize the Firebase app in the service worker by passing the generated config
+const firebaseConfig = {
+            //YOUR FIREBASE CONFIG HERE
+};
+
+firebase.initializeApp(firebaseConfig);
+
+// Initialize firebase messaging
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(function(payload) {
+    //do nothing
+});
+                    </code>
+                </pre>
+                
+                Additionally, the full html code you should have at this point is
+                <pre>
+                    <code>
+&lt!DOCTYPE html>
+&lthtml>
+&lthead>
+    &ltscript src="_sample_notifications.js" defer>&lt/script>
+&lt/head>
+&ltbody>
+    &ltscript type="module" defer>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getMessaging, getToken, onMessage} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            //YOUR FIREBASE CONFIG HERE
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+
+        function register_client() {
+            //generate token
+            getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
+                if (currentToken) {
+                    console.log(currentToken)
+                }
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+            });
+        }
+        document.getElementById ("permissionButton").addEventListener("click", register_client, false);
+
+        //handler for received message
+        onMessage(messaging, (payload) => {
+            console.log('Message received. ', payload);
+
+            //extract notification payload title and message body
+            const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+                body: payload.notification.body,
+            };
+            const notif = new Notification(notificationTitle, notificationOptions);
+        });
+    &lt/script>
+    &ltdiv id="headerText"> Let's Make a Notification! &lt/div>
+    &ltinput id="permissionButton" type="button" value="Click for permission">
+    &ltinput id="notificationButton" type="button" value="Click for a push notification">
+&lt/body>
+&lt/html>
+                    </code>
+                </pre>
+                <div class="step">Step 5: Deploy your website</div>
+                <p>For Firebase cloud notifications to work, the website must be served to the browser using HTTPS rather than HTTP.
+                This means you will either need to deploy the code to a secured web host or have a local self signed server,
+                which is outside of the scope fo this tutorial.</p>
+
+                <div class="step">Step 6: Send a Notification</div>
+                <p>
+                    Once your website is deployed, visit it with a supported browser (Chrome works best) and click the
+                    "Click for permission" button. If all went well you will see a label appear beneath the button with the
+                    Firebase token identifying your device. Copy this token and hold on to it.
+                    {{Image needed here?}}
+                </p>
+                <p>
+                    Return to your firebase project dashboard. Enter the messaging pane and click "Create your first campaign".
+                    <img style="border:solid" src="Assets/firebase/message_1.png"> <br>
+                </p>
+                <p>
+                    Select "Firebase Notification messages" in the pop-up box.
+                    <img style="border:solid" src="Assets/firebase/message_2.png"> <br>
+                </p>
+                <p>
+                    In the notification page, enter in a title and message body for your notification. Then, click "Send test message".
+                    <img style="border:solid" src="Assets/firebase/message_3.png"> <br>
+                </p>
+                <p>
+                    In the pop up, paste the client token you saved a few steps earlier and click the "+".
+                    <img style="border:solid" src="Assets/firebase/message_4.png"> <br>
+                </p>
+                <p>
+                    Click "Test". If all goes well, you should receive a notification on your client with your specified notification title and body text!
+                    <img style="border:solid" src="Assets/firebase/message_5.png"> <br>
+                    {{Image needed here!!!!!!!!}}
+                </p>
+
             </a>
             <a id="standards">
                 <h2>Standards</h2>

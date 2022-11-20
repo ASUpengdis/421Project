@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="_sample_notifications.js" defer></script>
+</head>
+<body>
+    <script type="module" defer>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        import { getMessaging, getToken, onMessage} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4Sk_DmwoG19iBL8WRJuOa_v74LwqNUm4",
+            authDomain: "notifications-tutorial-18861.firebaseapp.com",
+            projectId: "notifications-tutorial-18861",
+            storageBucket: "notifications-tutorial-18861.appspot.com",
+            messagingSenderId: "808171359078",
+            appId: "1:808171359078:web:4ad12ea532d2fb5baed6a7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const messaging = getMessaging(app);
+
+        function register_client() {
+            //generate token
+            getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
+                if (currentToken) {
+                    console.log(currentToken)
+                    document.getElementById("tokenLabel").textContent = String(currentToken)
+                }
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+            });
+        }
+        document.getElementById ("permissionButton").addEventListener("click", register_client, false);
+
+        //handler for received message
+        onMessage(messaging, (payload) => {
+            console.log('Message received. ', payload);
+
+            //extract notification payload title and message body
+            const notificationTitle = payload.notification.title;
+            const notificationOptions = {
+                body: payload.notification.body,
+            };
+            const notif = new Notification(notificationTitle, notificationOptions);
+        });
+    </script>
+    <div id="headerText"> Let's Make a Notification! </div>
+    <input id="permissionButton" type="button" value="Click for permission">
+    <input id="notificationButton" type="button" value="Click for a push notification">
+    <label id="tokenLabel"></label>
+</body>
+</html>
