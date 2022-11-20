@@ -479,10 +479,39 @@ messaging.onBackgroundMessage(function(payload) {
 &lt/html>
                     </code>
                 </pre>
-                <div class="step">Step 5: Send a Notification</div>
-                
+                <div class="step">Step 5: Deploy your website</div>
+                <p>For Firebase cloud notifications to work, the website must be served to the browser using HTTPS rather than HTTP.
+                This means you will either need to deploy the code to a secured web host or have a local self signed server,
+                which is outside of the scope fo this tutorial.</p>
 
-
+                <div class="step">Step 6: Send a Notification</div>
+                <p>
+                    Once your website is deployed, visit it with a supported browser (Chrome works best) and click the
+                    "Click for permission" button. If all went well you will see a label appear beneath the button with the
+                    Firebase token identifying your device. Copy this token and hold on to it.
+                    {{Image needed here?}}
+                </p>
+                <p>
+                    Return to your firebase project dashboard. Enter the messaging pane and click "Create your first campaign".
+                    <img style="border:solid" src="Assets/firebase/message_1.png"> <br>
+                </p>
+                <p>
+                    Select "Firebase Notification messages" in the pop-up box.
+                    <img style="border:solid" src="Assets/firebase/message_2.png"> <br>
+                </p>
+                <p>
+                    In the notification page, enter in a title and message body for your notification. Then, click "Send test message".
+                    <img style="border:solid" src="Assets/firebase/message_3.png"> <br>
+                </p>
+                <p>
+                    In the pop up, paste the client token you saved a few steps earlier and click the "+".
+                    <img style="border:solid" src="Assets/firebase/message_4.png"> <br>
+                </p>
+                <p>
+                    Click "Test". If all goes well, you should receive a notification on your client with your specified notification title and body text!
+                    <img style="border:solid" src="Assets/firebase/message_5.png"> <br>
+                    {{Image needed here!!!!!!!!}}
+                </p>
 
             </a>
             <a id="standards">
