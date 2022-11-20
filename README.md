@@ -8,4 +8,4 @@ Since most web push notifications require an https connection, the local index.h
 
 For the cloud notification demo, there is a separately hosted website (necessary for technical reasons) here: https://notifications-tutorial-18861.web.app/
 
-Video Link: 
+Video Link: https://youtu.be/uljPmPoXV-Q
