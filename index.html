@@ -92,7 +92,17 @@
                                 </ul>
                             </li>
 
-                            <li><a href="#cloud-notifications">Cloud Notifications</a></li>
+                            <li>
+                                <a href="#cloud-notifications">Cloud Notifications</a>
+                                <ul>
+                                    <li><a href="#cstep1">Step 1: Creating a Firebase Project</a></li>
+                                    <li><a href="#cstep2">Step 2: Register a Webapp</a></li>
+                                    <li><a href="#cstep3">Step 3: Configure Notification Certificate</a></li>
+                                    <li><a href="#cstep4">Step 4: Set Up Notification Reception</a></li>
+                                    <li><a href="#cstep5">Step 5: Deploy your website</a></li>
+                                    <li><a href="#cstep6">Step 6: Send a Notification</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li><a href="#standards">Standards</a></li>
@@ -120,7 +130,7 @@
                 </p>
 
                 <p>
-                <div class="step">Step 1: Set-up</div>
+                <div id="step1" class="step">Step 1: Set-up</div>
                     To set-up for our tutorial, we are going to start with 2 seperate files:
                     <ul>
                         <li>index.html</li>
@@ -382,7 +392,7 @@ messageChannel.port1.onmessage = (event) => {
                     For remote notifications through the cloud, we can use <a href="https://firebase.google.com/">Google Firebase</a>.
                 </p>
 
-                <div class="step">Step 1: Create a Firebase Project</div>
+                <div id="cstep1" class="step">Step 1: Create a Firebase Project</div>
                 <p>
                     First, sign up or log in and click "Go to Console" <br>
                     <img style="border:solid" src="Assets/firebase/firebase_login.png"> <br>
@@ -403,7 +413,7 @@ messageChannel.port1.onmessage = (event) => {
                     Click "Create Project", and wait for Firebase to create your project for you. This may take several minutes.
                 </p>
 
-                <div class="step">Step 2: Register a Webapp</div>
+                <div id="cstep2" class="step">Step 2: Register a Webapp</div>
                 <p>
                     After creating the Firebase project, you should be on the project's dashboard. Click the Webapp icon
                     to register a webapp with your firebase project.<br>
@@ -472,7 +482,7 @@ const app = initializeApp(firebaseConfig);
                     </code>
                 </pre>
 
-                <div class="step">Step 3: Configure Notification Certificate</div>
+                <div id="cstep3" class="step">Step 3: Configure Notification Certificate</div>
                 <p>
                     Going back to our firebase dashboard, now we need to set up a certificate for Web Push Notifications.
                     Click the cog wheel, click "Project Settings", go to the "Cloud messaging Tab", scroll down and click
@@ -487,7 +497,7 @@ const app = initializeApp(firebaseConfig);
                     <img style="border:solid" src="Assets/firebase/vapid_4.png"> <br>
                 </p>
 
-                <div class="step">Step 4: Set Up Notification Reception</div>
+                <div id="cstep4" class="step">Step 4: Set Up Notification Reception</div>
                 <p>
                     Back in our html, we need to add code to register the client with firebase using the key we just generated.
                     We also need to print the token that we get back so that we can use it to reference our client when we
@@ -615,12 +625,12 @@ messaging.onBackgroundMessage(function(payload) {
 &lt/html>
                     </code>
                 </pre>
-                <div class="step">Step 5: Deploy your website</div>
+                <div id="cstep5" class="step">Step 5: Deploy your website</div>
                 <p>For Firebase cloud notifications to work, the website must be served to the browser using HTTPS rather than HTTP.
                 This means you will either need to deploy the code to a secured web host or have a local self signed server,
                 which is outside of the scope of this tutorial.</p>
 
-                <div class="step">Step 6: Send a Notification</div>
+                <div id="cstep6" class="step">Step 6: Send a Notification</div>
                 <p>
                     Once your website is deployed, visit it with a supported browser (Chrome works best) and click the
                     "Click for permission" button. If all went well you will see a label appear beneath the button with the
