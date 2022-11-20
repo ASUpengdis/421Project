@@ -438,7 +438,9 @@ messageChannel.port1.onmessage = (event) => {
                     <img style="border:solid" src="Assets/firebase/setup_webapp_2.png"> <br>
                 </p>
                 <p>
-                    Paste the script element into your html file from earlier. Note that we have added a "defer" attribute in order to ensure the script loads at the correct time.<br>
+                    Paste the script element into your html file from earlier. Note that we have added a "defer" attribute
+                    in order to ensure the script loads at the correct time. We're also going to add a new label at the 
+                    bottom to display some text later.<br>
                 </p>
                 <pre>
                     <code>
@@ -464,7 +466,8 @@ messageChannel.port1.onmessage = (event) => {
     &lt/script>
     &ltdiv id="headerText"> Let's Make a Notification! &lt/div>
     &ltinput id="permissionButton" type="button" value="Click for permission">
-    &ltinput id="notificationButton" type="button" value="Click for a push notification">
+    &ltinput id="notificationButton" type="button" value="Click for a push notification"> &ltbr>
+    &ltlabel id="tokenLabel">&lt/label>
 &lt/body>
 &lt/html>
                     </code>
@@ -514,9 +517,10 @@ const app = initializeApp(firebaseConfig);
 function register_client() {
     //generate token
     getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
-        if (currentToken) {
-            console.log(currentToken)
-        }
+                if (currentToken) {
+                    console.log(currentToken)
+                    document.getElementById("tokenLabel").textContent = String(currentToken)
+                }
     }).catch((err) => {
         console.log('An error occurred while retrieving token. ', err);
     });
@@ -604,6 +608,7 @@ messaging.onBackgroundMessage(function(payload) {
             getToken(messaging, {vapidKey: '[WEB PUSH HERE]'}).then((currentToken) => {
                 if (currentToken) {
                     console.log(currentToken)
+                    document.getElementById("tokenLabel").textContent = String(currentToken)
                 }
             }).catch((err) => {
                 console.log('An error occurred while retrieving token. ', err);
@@ -625,7 +630,8 @@ messaging.onBackgroundMessage(function(payload) {
     &lt/script>
     &ltdiv id="headerText"> Let's Make a Notification! &lt/div>
     &ltinput id="permissionButton" type="button" value="Click for permission">
-    &ltinput id="notificationButton" type="button" value="Click for a push notification">
+    &ltinput id="notificationButton" type="button" value="Click for a push notification"> &ltbr>
+    &ltlabel id="tokenLabel">&lt/label>
 &lt/body>
 &lt/html>
                     </code>
