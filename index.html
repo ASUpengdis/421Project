@@ -389,10 +389,11 @@ messageChannel.port1.onmessage = (event) => {
 
                 <h3 id="cloud-notifications">Cloud Notifications</h3>
                 <p>
-                    For remote notifications through the cloud, we can use <a href="https://firebase.google.com/">Google Firebase</a>.
+                    For remote notifications through the cloud, we can use <a href="https://firebase.google.com/">Google Firebase</a> <a href="https://firebase.google.com/docs/cloud-messaging">Cloud Messaging</a>[10].
                 </p>
 
                 <div id="cstep1" class="step">Step 1: Create a Firebase Project</div>
+                <i>This step is based on steps in the firebase docs [14] with modifications and additions</i>
                 <p>
                     First, sign up or log in and click "Go to Console" <br>
                     <img style="border:solid" src="Assets/firebase/firebase_login.png"> <br>
@@ -414,6 +415,7 @@ messageChannel.port1.onmessage = (event) => {
                 </p>
 
                 <div id="cstep2" class="step">Step 2: Register a Webapp</div>
+                <i>This step is based on steps in the firebase docs [14] with modifications and additions</i>
                 <p>
                     After creating the Firebase project, you should be on the project's dashboard. Click the Webapp icon
                     to register a webapp with your firebase project.<br>
@@ -483,6 +485,7 @@ const app = initializeApp(firebaseConfig);
                 </pre>
 
                 <div id="cstep3" class="step">Step 3: Configure Notification Certificate</div>
+                <i>This step is based on steps in the firebase docs [11] with modifications and additions</i>
                 <p>
                     Going back to our firebase dashboard, now we need to set up a certificate for Web Push Notifications.
                     Click the cog wheel, click "Project Settings", go to the "Cloud messaging Tab", scroll down and click
@@ -498,6 +501,7 @@ const app = initializeApp(firebaseConfig);
                 </p>
 
                 <div id="cstep4" class="step">Step 4: Set Up Notification Reception</div>
+                <i>This step is based on steps in the firebase docs [13] with modifications and additions</i>
                 <p>
                     Back in our html, we need to add code to register the client with firebase using the key we just generated.
                     We also need to print the token that we get back so that we can use it to reference our client when we
@@ -631,6 +635,7 @@ messaging.onBackgroundMessage(function(payload) {
                 which is outside of the scope of this tutorial.</p>
 
                 <div id="cstep6" class="step">Step 6: Send a Notification</div>
+                <i>This step is based on steps in the firebase docs [12] with modifications and additions</i>
                 <p>
                     Once your website is deployed, visit it with a supported browser (Chrome works best) and click the
                     "Click for permission" button. If all went well you will see a label appear beneath the button with the
@@ -788,7 +793,7 @@ messaging.onBackgroundMessage(function(payload) {
                         [11]
                         <a href="https://firebase.google.com/docs/cloud-messaging/js/client" target="_blank">
                             (2022, Nov 17). Set up a JavaScript Firebase Cloud Messaging client app. Firebase. <br />
-                            Last retrieved November 19, 2022, from https://firebase.google.com/docs/web/setup#access-firebase
+                            Last retrieved November 19, 2022, from https://firebase.google.com/docs/cloud-messaging/js/client
                         </a>
                     </li>
                     <li>
@@ -803,6 +808,13 @@ messaging.onBackgroundMessage(function(payload) {
                         <a href="https://firebase.google.com/docs/cloud-messaging/js/receive#web-version-8_2" target="_blank">
                             (2022, Nov 17). Receive messages in a JavaScript client. Firebase. <br />
                             Last retrieved November 19, 2022, from https://firebase.google.com/docs/cloud-messaging/js/receive#web-version-8_2
+                        </a>
+                    </li>
+                    <li>
+                        [14]
+                        <a href="https://firebase.google.com/docs/web/setup" target="_blank">
+                            (2022, Nov 17). Add Firebase to your JavaScript project. Firebase. <br />
+                            Last retrieved November 19, 2022, from https://firebase.google.com/docs/web/setup
                         </a>
                     </li>
                 </ul>
